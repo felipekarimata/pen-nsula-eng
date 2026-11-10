@@ -693,8 +693,8 @@ function shell(){const p=P[S.persona],cnt=S.ap.filter(a=>a.to.includes(S.persona
 function render(){const m=$('.main'),t=m?m.scrollTop:0;$('#root').innerHTML=S.persona?shell():login();const m2=$('.main');if(m2)m2.scrollTop=t}
 function go(v){S.view=v;toggleSide(false);closeDrawer();render();const m=$('.main');if(m)m.scrollTop=0}
 function toggleSide(on){const s=$('#side'),c=$('#sscrim');if(!s)return;s.classList.toggle('on',on);c.classList.toggle('on',on)}
-function toggleTheme(){const r=document.documentElement,cur=r.dataset.theme||'dark',n=cur==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('pen-tema',n)}catch(e){}}
-document.documentElement.dataset.theme='dark';try{const t=localStorage.getItem('pen-tema');if(t)document.documentElement.dataset.theme=t}catch(e){}
+function toggleTheme(){const r=document.documentElement,cur=r.dataset.theme||'light',n=cur==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('pen-cor',n)}catch(e){}}
+document.documentElement.dataset.theme='light';try{const t=localStorage.getItem('pen-cor');if(t)document.documentElement.dataset.theme=t}catch(e){}
 const NOTIF={
  diretoria:[['Fechamento de outubro publicado','Margem consolidada de 33,1%, 0,4 ponto acima do orçamento.']],
  admin:[['2 relógios de ponto offline no Maré','A integração tenta reconectar a cada 15 minutos.'],['11 usuários sem verificação em duas etapas','Lembrete enviado por e-mail hoje às 8h.']],
