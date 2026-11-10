@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Peninsula Engenharia | Gestão integrada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{
+  --bg:#EDEDEB;--surface:#FFFFFF;--surface-2:#F6F6F4;--ink:#000000;--ink-2:#353535;--ink-3:#666666;
+  --line:#D2D2CE;--line-2:#E6E6E3;--inv:#FFFFFF;--side-line:#000000;
+  --serif:'Cormorant Garamond','Cormorant',Garamond,'Times New Roman',serif;
+  --sans:'Jost','Futura','Century Gothic','Avenir Next',system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#000000;--surface:#0D0D0D;--surface-2:#151515;--ink:#FFFFFF;--ink-2:#D0D0D0;--ink-3:#959595;--line:#2E2E2E;--line-2:#1F1F1F;--inv:#000000;--side-line:#262626;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#000000;--surface:#0D0D0D;--surface-2:#151515;--ink:#FFFFFF;--ink-2:#D0D0D0;--ink-3:#959595;--line:#2E2E2E;--line-2:#1F1F1F;--inv:#000000;--side-line:#262626;color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--sans);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,input,select,textarea{font:inherit;color:inherit}
+img,svg{max-width:100%}
+#root{height:100%}
+h1,h2,h3,h4,p{margin:0}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* logo */
+.logo{display:flex;align-items:center;gap:14px;color:inherit}
+.logo-ic{width:46px;height:auto;flex:none}
+.logo-w{font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.logo.lg .logo-ic{width:58px}.logo.lg .logo-w{font-size:30px}
+
+/* login */
+.login{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);height:100%}
+.l-art{background:#000;color:#fff;display:flex;flex-direction:column;padding:44px 52px 40px;overflow:hidden;min-height:0}
+.l-draw{flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;padding:28px 0 22px}
+.l-draw svg{height:100%;width:auto;max-height:600px}
+.l-cap{font-size:12.5px;color:#8a8a8a;margin-bottom:22px}
+.l-h{font-family:var(--serif);font-size:44px;line-height:1.05;font-weight:500;max-width:15ch}
+.l-s{color:#9b9b9b;font-size:14.5px;margin-top:14px;max-width:48ch}
+.l-form{background:var(--surface);overflow-y:auto;display:flex;justify-content:center;padding:56px 40px}
+.l-in{width:100%;max-width:540px}
+.l-in h1{font-family:var(--serif);font-weight:500;font-size:48px;line-height:1}
+.l-in>p{color:var(--ink-3);margin-top:10px}
+.l-in h4{font-size:13.5px;font-weight:500;margin:28px 0 10px}
+.pg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pp{text-align:left;background:var(--surface);border:1px solid var(--line);padding:11px 14px 12px;cursor:pointer;display:block;width:100%}
+.pp:hover{border-color:var(--ink-3)}
+.pp b{display:block;font-weight:500;font-size:14px}
+.pp span{display:block;font-size:12.5px;color:var(--ink-3);line-height:1.35;margin-top:2px}
+.pp.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.fld{display:block;margin-top:16px;font-size:13px;color:var(--ink-3)}
+.fld input{display:block;width:100%;margin-top:6px;padding:12px 14px;border:1px solid var(--line);background:var(--surface-2);font-size:14.5px;color:var(--ink)}
+.fine{font-size:12.5px;color:var(--ink-3);margin-top:14px}
+.creds{display:grid;grid-template-columns:1.5fr 1fr;gap:12px;margin-top:10px}
+
+/* shell */
+.app{display:grid;grid-template-columns:268px minmax(0,1fr);height:100%}
+.side{background:#000;color:#fff;display:flex;flex-direction:column;padding:30px 0 22px;overflow-y:auto;border-right:1px solid var(--side-line);z-index:30}
+.side .logo{padding:0 26px 26px}
+.me{display:flex;gap:12px;align-items:center;margin:0 20px 18px;padding:14px 6px;border-top:1px solid #262626;border-bottom:1px solid #262626}
+.me b{display:block;font-weight:500;font-size:14px}
+.me div span{display:block;font-size:12.5px;color:#9a9a9a;line-height:1.35}
+.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:500;flex:none;background:#fff;color:#000;letter-spacing:.04em}
+.av.ext{background:transparent;color:#fff;border:1px solid #fff}
+.av.sm{width:30px;height:30px;font-size:11px;background:var(--ink);color:var(--inv)}
+.av.sm.ext{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.nav-g{padding:6px 0 12px}
+.nav-g h5{font-size:12px;font-weight:400;color:#7a7a7a;padding:0 26px 4px;margin:0}
+.nl{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;background:none;border:0;color:#b3b3b3;padding:8px 26px;font-size:14.5px;cursor:pointer;position:relative}
+.nl:hover{color:#fff}
+.nl.on{color:#fff}
+.nl.on::before{content:"";position:absolute;left:0;top:50%;width:14px;height:4px;background:#fff;transform:translateY(-50%)}
+.nl .cnt{font-size:11.5px;border:1px solid #fff;border-radius:999px;padding:0 7px;color:#fff;line-height:18px}
+.side :focus-visible{outline-color:#fff;outline-offset:-2px}
+.side-foot{margin-top:auto;padding:16px 26px 0;border-top:1px solid #262626;font-size:12.5px;color:#7a7a7a;display:grid;gap:10px}
+.side-foot button{background:none;border:1px solid #3a3a3a;color:#fff;padding:10px 12px;cursor:pointer;text-align:left;font-size:13.5px}
+.side-foot button:hover{border-color:#fff}
+.main{overflow-y:auto;min-width:0;height:100%}
+.top{position:sticky;top:0;z-index:20;background:var(--bg);display:flex;align-items:center;gap:16px;padding:14px 40px;border-bottom:1px solid var(--line)}
+.crumb{font-size:13.5px;color:var(--ink-3);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumb b{color:var(--ink);font-weight:500}
+.top-r{margin-left:auto;display:flex;gap:8px;align-items:center}
+.search{border:1px solid var(--line);background:var(--surface);padding:9px 12px;width:270px;font-size:13.5px;color:var(--ink)}
+.search::placeholder{color:var(--ink-3)}
+.ib{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);cursor:pointer;position:relative;color:var(--ink);flex:none}
+.ib:hover{border-color:var(--ink)}
+.ib svg{width:18px;height:18px}
+.ib .dot{position:absolute;top:8px;right:8px;width:7px;height:7px;background:var(--ink);border-radius:50%}
+.menu{display:none}
+.content{padding:36px 40px 88px;max-width:1500px}
+.ph1{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.ph1 h1{font-family:var(--serif);font-weight:500;font-size:42px;line-height:1.05}
+.ph1 p{color:var(--ink-3);margin-top:10px;max-width:72ch}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .2s;z-index:25}
+.scrim.on{opacity:1;pointer-events:auto}
+
+/* building blocks */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));border-top:2px solid var(--ink);border-bottom:1px solid var(--line);margin-bottom:28px;background:var(--surface)}
+.kpi{padding:16px 20px 18px;border-right:1px solid var(--line-2)}
+.kpi:last-child{border-right:0}
+.kpi-l{font-size:13px;color:var(--ink-3)}
+.kpi-v{font-family:var(--serif);font-size:clamp(26px,2.3vw,34px);font-weight:500;line-height:1.1;margin-top:6px;white-space:nowrap}
+.kpi-s{font-size:12.5px;color:var(--ink-3);margin-top:4px;line-height:1.35}
+.g{display:grid;gap:24px;margin-bottom:24px}
+.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g-21{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.g-12{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)}
+.panel{background:var(--surface);border:1px solid var(--line);min-width:0}
+.panel>header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 20px;border-bottom:1px solid var(--line-2);min-height:56px}
+.panel>header h3{font-size:15px;font-weight:500}
+.pbody{padding:18px 20px}
+.pbody.flush{padding:0}
+.tw{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{font-weight:400;color:var(--ink-3);font-size:12.5px;text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+.tbl th:first-child,.tbl td:first-child{padding-left:20px}
+.tbl th:last-child,.tbl td:last-child{padding-right:20px}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .r{text-align:right;white-space:nowrap}
+.tbl td small{display:block;color:var(--ink-3);font-size:12.5px;line-height:1.35;margin-top:2px}
+.tbl tr.click{cursor:pointer}
+.tbl tr.click:hover td{background:var(--surface-2)}
+.w5{font-weight:500}
+.b{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;line-height:1;padding:5px 10px 5px 8px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;color:var(--ink);background:var(--surface)}
+.b-risk{border-color:var(--ink);font-weight:500}
+.sw{width:10px;height:10px;border:1px solid var(--ink);flex:none;display:inline-block}
+.sw-solid{background:var(--ink)}
+.sw-hatch{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 4px)}
+.sw-cross{background:repeating-linear-gradient(45deg,var(--ink) 0 1px,transparent 1px 3.5px),repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 3.5px)}
+.sw-dot{background:radial-gradient(circle,var(--ink) .9px,transparent 1.2px) 0 0/4px 4px}
+.sw-out{background:transparent}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--ink-3)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.pbw{display:flex;align-items:center;gap:10px;min-width:140px}
+.pbw span{font-size:13px;min-width:38px;text-align:right}
+.pb{height:6px;background:var(--line-2);position:relative;flex:1;min-width:70px}
+.pb i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.pb b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink-3)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--ink);background:var(--ink);color:var(--inv);padding:11px 20px;font-size:14px;cursor:pointer;letter-spacing:.02em;transition:opacity .15s;white-space:nowrap}
+.btn:hover{opacity:.82}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-sm{padding:7px 13px;font-size:13px}
+.btn-block{width:100%;margin-top:22px;padding:14px}
+.btns{display:inline-flex;gap:6px}
+.lnk{background:none;border:0;padding:0;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;font-size:13.5px}
+.muted{color:var(--ink-3)}
+.sm{font-size:13px}
+.rows>div{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-2)}
+.rows>div:first-child{padding-top:0}
+.rows>div:last-child{border-bottom:0;padding-bottom:0}
+.rows small{display:block;color:var(--ink-3);font-size:12.5px;line-height:1.35}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:14px;margin:0}
+.dl dt{color:var(--ink-3)}.dl dd{margin:0;text-align:right}
+.inp{width:100%;padding:10px 12px;border:1px solid var(--line);background:var(--surface);font-size:14px;color:var(--ink)}
+.inp:focus{border-color:var(--ink);outline:none}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto}
+.tab{background:none;border:0;padding:10px 14px;font-size:14px;color:var(--ink-3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tab.on{color:var(--ink);border-color:var(--ink)}
+.empty{padding:48px 24px;text-align:center}
+.empty h4{font-family:var(--serif);font-size:26px;font-weight:500}
+.empty p{color:var(--ink-3);margin-top:6px}
+.note{border-left:2px solid var(--ink);padding:4px 0 4px 14px;font-size:13.5px;color:var(--ink-2)}
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart .gl{stroke:var(--line-2)}
+.chart .ax{fill:var(--ink-3);font-size:11px;font-family:var(--sans)}
+.chart .s1{fill:none;stroke:var(--ink);stroke-width:2}
+.chart .s2{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 4}
+.chart .today{stroke:var(--ink);stroke-dasharray:2 3}
+.tw-svg{color:var(--ink);display:block}
+
+/* kanban */
+.kb{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(205px,1fr);gap:14px;overflow-x:auto;padding-bottom:8px}
+.kcol{background:var(--surface-2);border:1px solid var(--line-2);padding:12px;min-height:220px}
+.kcol h4{display:flex;justify-content:space-between;font-size:13.5px;font-weight:500;margin:2px 4px 12px}
+.kcol h4 span{color:var(--ink-3);font-weight:400}
+.kc{background:var(--surface);border:1px solid var(--line);padding:12px 13px;margin-bottom:8px;font-size:13.5px;line-height:1.4}
+.kc b{font-weight:500;display:block}
+.kc .meta{display:flex;justify-content:space-between;gap:8px;color:var(--ink-3);font-size:12.5px;margin-top:8px}
+
+/* drawer + toast */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(470px,100%);background:var(--surface);border-left:1px solid var(--ink);z-index:41;transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 26px) 28px calc(env(safe-area-inset-bottom,0px) + 32px)}
+.drawer.on{transform:none}
+.dscrim{z-index:40}
+.dr-x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 18px);right:18px}
+.drawer h2{font-family:var(--serif);font-size:32px;font-weight:500;line-height:1.1;padding-right:48px}
+.drawer .sub{color:var(--ink-3);margin-top:6px}
+.dsec{margin-top:24px;padding-top:18px;border-top:1px solid var(--line-2)}
+.dsec h4{font-size:13.5px;font-weight:500;margin-bottom:12px}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);transform:translate(-50%,16px);background:var(--ink);color:var(--inv);padding:13px 20px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:60;max-width:calc(100% - 32px);width:max-content}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* journey */
+.jm{border-collapse:separate;border-spacing:4px;font-size:13px;width:100%;min-width:780px;table-layout:fixed}
+.jm th.l{width:150px}
+.jm th{font-weight:400;color:var(--ink-3);font-size:12px;text-align:center;padding:0 2px 6px;vertical-align:bottom;line-height:1.25}
+.jm th.l,.jm td.l{text-align:left;white-space:nowrap;padding-right:14px;color:var(--ink)}
+.jm th.sel{color:var(--ink);font-weight:500}
+.jm td.c{height:24px;border:1px solid var(--ink);min-width:58px}
+.jm td.d{background:var(--ink)}
+.jm td.p{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 4px)}
+.jm td.f{border-color:var(--line)}
+.steps{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));border-top:2px solid var(--ink);border-bottom:1px solid var(--line);margin:4px 0 24px;background:var(--surface)}
+.step{background:none;border:0;border-right:1px solid var(--line-2);text-align:left;padding:14px 12px 16px;cursor:pointer;color:var(--ink-3);display:flex;flex-direction:column;justify-content:flex-start}
+.step:last-child{border-right:0}
+.step .n{font-family:var(--serif);font-size:28px;line-height:1;display:block;color:var(--ink)}
+.step .t{display:block;font-size:13px;margin-top:8px;line-height:1.3}
+.step.on{background:var(--ink);color:var(--inv)}
+.step.on .n{color:var(--inv)}
+.ol{list-style:none;padding:0;margin:0;counter-reset:o}
+.ol li{counter-increment:o;display:grid;grid-template-columns:28px 1fr;padding:9px 0;border-bottom:1px solid var(--line-2);font-size:14px}
+.ol li:last-child{border-bottom:0}
+.ol li::before{content:counter(o);font-family:var(--serif);font-size:18px;line-height:1.1;color:var(--ink-3)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);padding:5px 10px;font-size:13px;background:var(--surface)}
+.ppl{display:grid;gap:10px}
+.ppl>div{display:flex;gap:10px;align-items:center;font-size:14px}
+.ppl small{display:block;color:var(--ink-3);font-size:12.5px;line-height:1.3}
+
+/* LOB + building */
+.lob{border-collapse:separate;border-spacing:3px;font-size:11.5px;width:100%;min-width:440px;table-layout:fixed}
+.lob th{font-weight:400;color:var(--ink-3);padding:0 1px 6px;text-align:left;font-size:11px;line-height:1.2;vertical-align:bottom;overflow-wrap:anywhere}
+.lob th:first-child{width:34px}
+.lob td{height:13px;padding:0;border:1px solid var(--line)}
+.lob td.f{border:0;color:var(--ink-3);text-align:right;padding-right:8px;width:34px;font-size:11px;line-height:1}
+.lob td.d{background:var(--ink);border-color:var(--ink)}
+.lob td.p{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 4px);border-color:var(--ink)}
+.bars>div{display:grid;grid-template-columns:150px 1fr 96px;gap:12px;align-items:center;padding:7px 0;font-size:13.5px}
+.bars .trk{height:14px;position:relative;background:var(--line-2)}
+.bars .trk i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.bars .trk em{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink-3)}
+.bars .v{text-align:right;color:var(--ink-3);font-size:12.5px}
+
+/* gantt */
+.gt{min-width:900px;position:relative}
+.gt-row{display:grid;grid-template-columns:240px 1fr;align-items:center;border-bottom:1px solid var(--line-2);min-height:46px}
+.gt-l{font-size:13.5px;padding:8px 14px 8px 20px;line-height:1.3}
+.gt-l small{display:block;color:var(--ink-3);font-size:12px}
+.gt-t{position:relative;height:46px}
+.gt-bar{position:absolute;top:16px;height:14px;border:1px solid var(--ink);background:var(--surface)}
+.gt-bar i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.gt-bar.late{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 4px)}
+.gt-head{border-bottom:1px solid var(--line)}
+.gt-head .gt-t span{position:absolute;top:24px;font-size:12px;color:var(--ink-3);padding-left:6px;border-left:1px solid var(--line)}
+.gt-today{position:absolute;top:0;bottom:0;border-left:1px dashed var(--ink);pointer-events:none}
+.gt-today span{position:absolute;top:2px;left:6px;font-size:11.5px;background:var(--ink);color:var(--inv);padding:1px 6px;white-space:nowrap}
+
+/* espelho */
+.esp{display:grid;gap:4px;min-width:min(100%,420px)}
+.esp-row{display:grid;grid-template-columns:40px repeat(var(--n),minmax(48px,1fr));gap:4px;align-items:center}
+.esp-f{font-size:12px;color:var(--ink-3);text-align:right;padding-right:6px}
+.u{height:30px;border:1px solid var(--ink);background:var(--surface);font-size:11.5px;cursor:pointer;display:grid;place-items:center;padding:0;color:var(--ink)}
+.u span{background:var(--surface);padding:0 3px;line-height:1.3}
+.u.vendido{background:var(--ink);color:var(--inv)}
+.u.vendido span{background:transparent}
+.u.reservado{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,var(--surface) 1px 5px)}
+.u.permuta{background:radial-gradient(circle,var(--ink) .9px,transparent 1.2px) 0 0/5px 5px,var(--surface)}
+.u.disponivel:hover{background:var(--surface-2)}
+
+/* emp cards */
+.ecards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.ec{background:var(--surface);border:1px solid var(--line);display:grid;grid-template-columns:118px 1fr;cursor:pointer;text-align:left;padding:0;color:var(--ink)}
+.ec:hover{border-color:var(--ink)}
+.ec .art{background:var(--surface-2);border-right:1px solid var(--line-2);padding:14px 10px;display:flex;align-items:flex-end;justify-content:center;min-height:220px}
+.ec .txt{padding:18px 18px 16px;display:flex;flex-direction:column;gap:4px}
+.ec h3{font-family:var(--serif);font-weight:500;font-size:25px;line-height:1.1}
+.ec .dl{margin-top:auto;font-size:13px;gap:6px 12px;padding-top:12px}
+
+/* misc */
+.doc{background:var(--surface);border:1px solid var(--ink)}
+.doc-h{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));border-bottom:1px solid var(--ink)}
+.doc-h>div{padding:12px 18px;border-right:1px solid var(--line)}
+.doc-h>div:last-child{border-right:0}
+.doc-h small{display:block;color:var(--ink-3);font-size:12px}
+.doc-s{padding:18px 20px;border-bottom:1px solid var(--line)}
+.doc-s:last-child{border-bottom:0}
+.doc-s h4{font-size:13.5px;font-weight:500;margin-bottom:12px}
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.photo{border:1px solid var(--line);background:var(--surface-2);color:var(--ink-3)}
+.photo svg{display:block;width:100%;height:auto}
+.photo p{font-size:12.5px;padding:8px 10px;border-top:1px solid var(--line-2);color:var(--ink-2)}
+.org{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.org-c{background:var(--surface);border:1px solid var(--line);padding:16px 18px}
+.org-c h4{font-family:var(--serif);font-size:22px;font-weight:500;display:flex;justify-content:space-between;align-items:baseline}
+.org-c h4 span{font-family:var(--sans);font-size:12.5px;color:var(--ink-3);font-weight:400}
+.org-c .ppl{margin-top:12px}
+.top-org{display:flex;justify-content:center;margin-bottom:16px}
+.top-org .org-c{border-color:var(--ink);min-width:min(520px,100%)}
+.phone-wrap{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:32px;align-items:start}
+.phone{border:1px solid var(--ink);border-radius:42px;padding:11px;background:var(--surface)}
+.screen{border-radius:32px;overflow:hidden;background:var(--bg);border:1px solid var(--line)}
+.scr-top{background:#000;color:#fff;padding:26px 22px 20px}
+.scr-top small{color:#9a9a9a;display:block;font-size:12.5px}
+.scr-top h3{font-family:var(--serif);font-size:30px;font-weight:500;line-height:1.1;margin-top:4px}
+.scr-sec{padding:16px 18px;border-bottom:1px solid var(--line)}
+.scr-sec h4{font-size:13px;font-weight:500;margin-bottom:10px}
+.cnt-r{display:flex;align-items:center;justify-content:space-between;padding:6px 0;font-size:14px}
+.stp{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--surface)}
+.stp button{width:34px;height:32px;border:0;background:none;cursor:pointer;font-size:16px}
+.stp span{min-width:32px;text-align:center;font-weight:500}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;font-size:14px;cursor:pointer}
+.chk input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--ink);flex:none}
+.chk.done span{text-decoration:line-through;color:var(--ink-3)}
+.opt{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.oc{border:1px solid var(--line);background:var(--surface);padding:0;cursor:pointer;text-align:left;color:var(--ink);display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch}
+.oc.on{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.oc .tex{height:78px;border-bottom:1px solid var(--line)}
+.oc .tx{padding:10px 12px;font-size:13px;line-height:1.35}
+.oc .tx b{font-weight:500;display:block}
+.t-porc{background:linear-gradient(90deg,transparent 49%,#cfcfcb 49% 51%,transparent 51%) 0 0/50% 100%,#efefec}
+.t-trav{background:repeating-linear-gradient(0deg,#e2e0db 0 5px,#d3d1cb 5px 6px,#e7e5e0 6px 13px),#e2e0db}
+.t-mad{background:repeating-linear-gradient(90deg,#4a4a48 0 3px,#5c5c59 3px 8px,#3c3c3a 8px 10px,#545451 10px 16px)}
+.t-qtz{background:radial-gradient(circle,#d8d8d6 1px,transparent 1.5px) 0 0/7px 7px,#f4f4f2}
+.t-cal{background:linear-gradient(118deg,transparent 28%,#9a9a96 29%,transparent 31%),linear-gradient(150deg,transparent 58%,#b5b5b1 59%,transparent 60.5%),linear-gradient(100deg,transparent 70%,#c4c4c0 71%,transparent 72%),#f7f7f5}
+.t-gran{background:radial-gradient(circle,#4a4a4a 1px,transparent 1.4px) 0 0/5px 5px,radial-gradient(circle,#2a2a2a 1.5px,transparent 2px) 2px 3px/9px 9px,#121212}
+.t-crom{background:linear-gradient(90deg,#9d9d9d,#f2f2f2 30%,#a9a9a9 55%,#e6e6e6 80%,#b0b0b0)}
+.t-pret{background:linear-gradient(90deg,#141414,#2b2b2b 45%,#161616 70%,#262626)}
+.t-ouro{background:repeating-linear-gradient(90deg,#b9b4a8 0 1px,#cfcabe 1px 3px,#aaa598 3px 4px)}
+.t-a0{background:repeating-linear-gradient(0deg,#d6d6d3 0 1px,#f2f2f0 1px 12px)}
+.t-a1{background:repeating-linear-gradient(0deg,#3a3a3a 0 3px,#f2f2f0 3px 9px)}
+.t-a2{background:repeating-linear-gradient(0deg,#111 0 5px,#3a3a3a 5px 7px)}
+.flowr{display:grid;grid-template-columns:150px 28px minmax(0,1fr) 40px;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-2)}
+.flowr .arr{height:1px;background:var(--ink);position:relative}
+.flowr .arr::after{content:"";position:absolute;right:-1px;top:-4px;border:4px solid transparent;border-left:6px solid var(--ink);border-right:0}
+.tg{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-2);font-size:14px;cursor:pointer}
+.tg:last-child{border-bottom:0}
+.sw-t{width:40px;height:22px;border:1px solid var(--ink);position:relative;flex:none;background:var(--surface)}
+.sw-t::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--ink-3);transition:left .15s}
+.sw-t.on{background:var(--ink)}
+.sw-t.on::after{left:20px;background:var(--inv)}
+.chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13.5px}
+.chain i{font-style:normal;color:var(--ink-3)}
+.pm td.lv{text-align:center}
+.pm button{min-width:76px;border:1px solid var(--line);background:var(--surface);padding:5px 8px;font-size:12.5px;cursor:pointer;color:var(--ink)}
+.pm button.l3{background:var(--ink);color:var(--inv);border-color:var(--ink)}
+.pm button.l2{border-color:var(--ink)}
+.pm button.l0{color:var(--ink-3)}
+.rng{display:grid;gap:4px;margin-bottom:16px}
+.rng label{display:flex;justify-content:space-between;font-size:13.5px}
+.rng label b{font-weight:500}
+.rng input{width:100%;accent-color:var(--ink)}
+.stack{display:flex;height:26px;border:1px solid var(--ink);margin:6px 0 10px}
+.stack span{display:block;height:100%}
+.feed>div{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line-2)}
+.feed>div:last-child{border-bottom:0}
+.feed time{font-size:12.5px;color:var(--ink-3)}
+.code{font-family:var(--sans);letter-spacing:.04em;background:var(--surface-2);border:1px solid var(--line);padding:12px 14px;font-size:14px;word-break:break-all}
+.hero-cli{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:36px;align-items:end;background:var(--surface);border:1px solid var(--line);padding:28px 32px;margin-bottom:24px}
+.hero-cli .big{font-family:var(--serif);font-size:96px;line-height:.9;font-weight:500}
+.hc-art{max-width:220px}
+.mt{margin-top:14px}.mt2{margin-top:24px}
+.right{text-align:right}
+.jr{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:3px}
+.jr i{height:18px;border:1px solid var(--ink)}
+.jr i.d{background:var(--ink)}
+.jr i.p{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 4px)}
+.jr i.f{border-color:var(--line)}
+.efg{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.efg div{border:1px solid var(--line-2);padding:10px 12px;font-size:13px;color:var(--ink-3)}
+.efg b{display:block;font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.05;color:var(--ink)}
+.ocf{display:grid;grid-template-columns:1fr auto;gap:8px}
+
+/* responsive */
+@media (max-width:1180px){.g-2,.g-3,.g-21,.g-12{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:repeat(3,minmax(0,1fr))}.step{border-bottom:1px solid var(--line-2)}.phone-wrap{grid-template-columns:minmax(0,1fr)}.phone{max-width:400px;margin:0 auto;width:100%}}
+@media (max-width:920px){
+  .login{grid-template-columns:1fr;height:auto;min-height:100%}
+  .l-art{padding:28px 24px 30px}
+  .l-draw{padding:20px 0 14px}.l-draw svg{height:260px}
+  .l-h{font-size:34px}
+  .l-form{padding:32px 20px 40px}
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;top:0;bottom:0;left:0;width:min(300px,86vw);transform:translateX(-100%);transition:transform .25s ease;padding-top:calc(env(safe-area-inset-top,0px) + 26px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 22px)}
+  .side.on{transform:none}
+  .menu{display:grid}
+  .top{padding:12px 16px;gap:10px}
+  .search{display:none}
+  .content{padding:24px 16px 72px}
+  .ph1 h1{font-size:34px}
+  .hero-cli{grid-template-columns:1fr;padding:22px}
+  .hero-cli .big{font-size:72px}
+  .hc-art{max-width:140px}
+  .opt{grid-template-columns:1fr 1fr}
+  .flowr{grid-template-columns:1fr;gap:6px}.flowr .arr{display:none}
+  .bars>div{grid-template-columns:110px 1fr 80px}
+}
+@media (max-width:560px){.pg{grid-template-columns:1fr}.creds{grid-template-columns:1fr}.kpi-v{font-size:28px}.ec{grid-template-columns:96px 1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<div class="scrim dscrim" id="dscrim" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Detalhes"><button class="ib dr-x" onclick="closeDrawer()" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div id="drawer-c"></div></aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* ============ DADOS FICTÍCIOS ============ */
+const ICON=`<svg class="logo-ic" viewBox="0 0 110 52" aria-hidden="true"><rect x="2" y="2" width="106" height="48" fill="none" stroke="currentColor" stroke-width="4"/><path fill="currentColor" fill-rule="evenodd" d="M8 8h94v36H8z M22 20v12h66V20z"/></svg>`;
+const logo=(c='')=>`<div class="logo ${c}" aria-label="Peninsula Engenharia">${ICON}<span class="logo-w">Peninsula</span></div>`;
+
+const P={
+ diretoria:{name:'Ricardo Albuquerque',role:'Diretor-presidente',area:'Diretoria',email:'ricardo.albuquerque@peninsula.eng.br',nav:[['Diretoria',['exec','aprovacoes','jornada']],['Operação',['emp','obra','fin','vendas','compras']],['Organização',['pessoas']]]},
+ admin:{name:'Thiago Mendes',role:'Administrador do sistema',area:'Tecnologia',email:'thiago.mendes@peninsula.eng.br',nav:[['Sistema',['admin','usuarios','fluxos','auditoria']],['Organização',['pessoas','jornada']]]},
+ incorporacao:{name:'Larissa Campos',role:'Gerente de incorporação e projetos',area:'Incorporação e projetos',email:'larissa.campos@peninsula.eng.br',nav:[['Incorporação',['terrenos','projetos','aprovacoes']],['Consulta',['emp','jornada']]]},
+ engenharia:{name:'Marcos Teixeira',role:'Gerente de obras',area:'Engenharia',email:'marcos.teixeira@peninsula.eng.br',nav:[['Obra',['obra','crono','diario','qualidade','seguranca','medicoes']],['Gestão',['aprovacoes','compras','almox','assist']],['Consulta',['jornada']]]},
+ campo:{name:'Sebastião Moura',role:'Mestre de obras, Aurora',area:'Campo',email:'sebastiao.moura@peninsula.eng.br',nav:[['Campo',['meudia','diario','qualidade','seguranca']]]},
+ suprimentos:{name:'Fernanda Lima',role:'Coordenadora de suprimentos',area:'Suprimentos',email:'fernanda.lima@peninsula.eng.br',nav:[['Suprimentos',['compras','cotacao','forn','almox']],['Gestão',['aprovacoes','jornada']]]},
+ financeiro:{name:'Helena Vasconcelos',role:'Diretora financeira',area:'Financeiro',email:'helena.vasconcelos@peninsula.eng.br',nav:[['Financeiro',['fin','pagar','receber','medicoes']],['Gestão',['aprovacoes','emp','jornada']]]},
+ comercial:{name:'Camila Duarte',role:'Gerente comercial',area:'Comercial',email:'camila.duarte@peninsula.eng.br',nav:[['Comercial',['vendas','espelho','crm']],['Gestão',['aprovacoes','jornada']]]},
+ cliente:{name:'Beatriz Montenegro',role:'Proprietária, Aurora 1802',area:'Portal do cliente',ext:1,email:'beatriz.montenegro@email.com',nav:[['Minha compra',['cli','clipag','clipers','cliatend']]]},
+ fornecedor:{name:'André Siqueira',role:'Concreteira Atlântica',area:'Portal do fornecedor',ext:1,email:'andre@concreteiraatlantica.com.br',nav:[['Fornecedor',['fhome','fcot','fped']]]},
+};
+
+const EMP=[
+ {id:'aurora',n:'Peninsula Aurora',tipo:'Residencial alto padrão',loc:'Batel, Curitiba/PR',fase:'Estrutura',fis:62,plan:65,vend:78,vgv:486,pav:28,un:112,ent:'jun/2028',mg:34.1,st:'Atenção ao prazo',ger:'Marcos Teixeira',eng:'Juliana Prado',tw:{f:28,d:18,p:19}},
+ {id:'mare',n:'Peninsula Maré',tipo:'Residencial frente-mar',loc:'Balneário Camboriú/SC',fase:'Fundações',fis:14,plan:13,vend:41,vgv:1180,pav:46,un:92,ent:'dez/2030',mg:36.8,st:'No prazo',ger:'Marcos Teixeira',eng:'Rogério Assis',tw:{f:46,d:0,p:0,fund:1}},
+ {id:'vertice',n:'Peninsula Vértice',tipo:'Corporativo AAA',loc:'Setor Comercial Norte, Brasília/DF',fase:'Acabamentos',fis:88,plan:90,vend:91,vgv:392,pav:18,un:144,ent:'mar/2027',mg:29.6,st:'No prazo',ger:'Marcos Teixeira',eng:'Natália Brandão',tw:{f:18,d:18,p:0}},
+ {id:'quinta',n:'Peninsula Quinta da Serra',tipo:'Casas em condomínio',loc:'Nova Lima/MG',fase:'Aprovação legal',fis:0,plan:0,vend:0,vgv:310,pav:2,un:38,ent:'lançamento em mar/2027',mg:31.0,st:'No prazo',ger:'Larissa Campos',eng:'A definir',houses:1},
+ {id:'lumen',n:'Peninsula Lumen',tipo:'Residencial alto padrão',loc:'Barra da Tijuca, Rio de Janeiro/RJ',fase:'Pós-obra',fis:100,plan:100,vend:100,vgv:402,pav:24,un:96,ent:'entregue em ago/2026',mg:33.9,st:'4 chamados fora do SLA',ger:'Diego Farias',eng:'Carlos Brito',tw:{f:24,d:24,p:0}},
+];
+// d = concluída, p = em curso, f = próxima
+const JMAIN={aurora:5,mare:5,vertice:5,quinta:1,lumen:8,ecoville:0};
+const JM={aurora:'dddppppff',mare:'dddppppff',vertice:'dddppppff',quinta:'dppffffff',lumen:'ddddddddp',ecoville:'pffffffff'};
+
+const J=[
+ {n:'Terreno e viabilidade',area:'Incorporação',resumo:'Encontrar a área certa e provar que o negócio para em pé antes de assinar qualquer coisa.',proc:['Prospecção e triagem de áreas','Estudo de massa e potencial construtivo','Viabilidade econômica: VGV, custo, margem e exposição de caixa','Due diligence jurídica e ambiental','Negociação de compra ou permuta','Aprovação no comitê de investimento'],pes:[['Larissa Campos','Incorporação'],['Dr. Otávio Reis','Jurídico'],['Helena Vasconcelos','Financeiro'],['Ricardo Albuquerque','Comitê']],ext:['Corretores de terreno','Arquiteto do estudo de massa','Cartório de registro de imóveis'],mod:['Terrenos e viabilidade','Aprovações'],ent:['Estudo de viabilidade','Parecer jurídico','Ata do comitê'],sla:'60 a 90 dias',aj:['Margem mínima para aprovar (hoje 28%)','Quem vota no comitê','Checklist de due diligence']},
+ {n:'Projetos e aprovações',area:'Incorporação e projetos',resumo:'Transformar o estudo em projeto executivo compatibilizado e com todas as licenças.',proc:['Contratação dos projetistas','Projeto legal e protocolo na prefeitura','Projetos executivos e complementares','Compatibilização em BIM','Licença ambiental e alvará de construção','Registro de incorporação'],pes:[['Larissa Campos','Coordenação'],['Dr. Otávio Reis','Jurídico'],['Marcos Teixeira','Revisão de engenharia']],ext:['Moreau Arquitetura','Calcular Estrutural','Lux Luminotécnica','Prefeitura e órgão ambiental'],mod:['Projetos e legalização','Fluxos de aprovação'],ent:['Alvará de construção','Registro de incorporação','Projetos liberados para obra'],sla:'6 a 12 meses',aj:['Quais revisões exigem aval da engenharia','Disciplinas obrigatórias na compatibilização']},
+ {n:'Orçamento e planejamento',area:'Engenharia',resumo:'Definir quanto custa, em que ordem se constrói e quando cada recurso precisa chegar.',proc:['Estrutura analítica do projeto','Orçamento executivo por composições','Cronograma físico-financeiro e curva S','Plano de ataque e logística de canteiro','Estratégia de compras e contratações'],pes:[['Bruno Kato','Planejamento'],['Marcos Teixeira','Gerente de obras'],['Fernanda Lima','Suprimentos'],['Helena Vasconcelos','Financeiro']],ext:['Consultoria de custos','Locadoras de equipamentos'],mod:['Cronograma','Painel da obra'],ent:['Orçamento base aprovado','Cronograma de linha de base','Curva S'],sla:'45 dias',aj:['Nível de detalhe do orçamento','Desvio tolerado antes de alertar (hoje 3%)']},
+ {n:'Lançamento e vendas',area:'Comercial',resumo:'Levar o produto ao mercado e transformar interesse em contrato assinado.',proc:['Tabela de vendas e política de descontos','Espelho de vendas','Captação e qualificação de interessados','Visita ao decorado e proposta','Análise de crédito','Contrato, assinatura eletrônica e registro'],pes:[['Camila Duarte','Gerente comercial'],['Rafael Nogueira','Corretor'],['Dr. Otávio Reis','Contratos'],['Helena Vasconcelos','Crédito']],ext:['Imobiliárias parceiras','Agência de marketing','Banco financiador'],mod:['Vendas','Espelho de vendas','Funil de clientes'],ent:['Contratos assinados','Carteira de recebíveis'],sla:'Até a última unidade',aj:['Alçadas de desconto','Tempo de reserva (hoje 48 horas)','Distribuição de contatos entre corretores']},
+ {n:'Suprimentos',area:'Suprimentos',resumo:'Comprar e contratar no prazo, pelo melhor custo total, só com fornecedores homologados.',proc:['Requisição feita pela obra','Cotação com no mínimo três fornecedores','Mapa comparativo e negociação','Aprovação por alçada','Pedido de compra ou contrato de empreitada','Recebimento e conferência na obra'],pes:[['Fernanda Lima','Suprimentos'],['Juliana Prado','Engenheira residente'],['Marcos Teixeira','Gerente de obras']],ext:['86 fornecedores homologados','23 empreiteiros de mão de obra'],mod:['Compras','Mapa de cotação','Fornecedores','Portal do fornecedor'],ent:['Pedidos emitidos','Contratos de empreitada','Avaliação de fornecedores'],sla:'Lead time médio de 9 dias',aj:['Número mínimo de cotações','Valor de cada alçada','Critérios de homologação']},
+ {n:'Execução da obra',area:'Engenharia',resumo:'Construir conforme projeto, prazo, custo, qualidade e segurança, com registro diário de tudo.',proc:['Diário de obra','Controle de efetivo e equipamentos','Fichas de verificação de serviço','Medição de empreiteiros','Segurança do trabalho e diálogo diário','Almoxarifado e consumo de materiais'],pes:[['Marcos Teixeira','Gerente de obras'],['Juliana Prado','Engenheira residente'],['Sebastião Moura','Mestre de obras'],['Patrícia Gomes','Segurança do trabalho']],ext:['Empreiteiros','Concreteira Atlântica','Laboratório de controle tecnológico'],mod:['Painel da obra','Diário de obra','Qualidade','Segurança','Medições','Almoxarifado'],ent:['Diário assinado todo dia','Medições aprovadas','Fichas de verificação'],sla:'24 a 48 meses',aj:['Campos obrigatórios do diário','Quem assina as medições','Checklist de cada serviço']},
+ {n:'Financeiro e repasse',area:'Financeiro',resumo:'Garantir caixa para a obra, receber dos clientes e repassar os financiamentos na entrega.',proc:['Contas a pagar com aprovação por alçada','Contas a receber e cobrança','Fluxo de caixa por empreendimento','Patrimônio de afetação','Medição do banco financiador','Repasse dos clientes na entrega'],pes:[['Helena Vasconcelos','Diretora financeira'],['Paulo Henrique Rocha','Analista financeiro']],ext:['Banco financiador','Contabilidade','Auditoria externa'],mod:['Financeiro','Contas a pagar','Contas a receber'],ent:['Fluxo de caixa','Remessas bancárias','Prestação de contas de cada SPE'],sla:'Fechamento até o 5º dia útil',aj:['Dias de pagamento na semana','Régua de cobrança','Centros de custo']},
+ {n:'Entrega das chaves',area:'Engenharia e relacionamento',resumo:'Vistoriar unidade por unidade e entregar com a documentação completa.',proc:['Vistoria interna de qualidade','Habite-se e AVCB','Vistoria com o cliente','Instalação do condomínio','Entrega das chaves e do manual do proprietário'],pes:[['Marcos Teixeira','Engenharia'],['Diego Farias','Relacionamento pós-obra'],['Camila Duarte','Comercial']],ext:['Prefeitura','Corpo de bombeiros','Administradora de condomínio'],mod:['Atendimento','Assistência técnica'],ent:['Termos de vistoria','Habite-se','Manual do proprietário'],sla:'60 dias',aj:['Roteiro de vistoria','Agenda de entregas por andar']},
+ {n:'Pós-obra',area:'Assistência técnica',resumo:'Atender garantias com prazo claro e levar o aprendizado para os próximos projetos.',proc:['Abertura de chamado pelo cliente','Triagem e visita técnica','Execução do reparo e aceite','Pesquisa de satisfação','Lições aprendidas para projetos'],pes:[['Diego Farias','Assistência técnica'],['Marcos Teixeira','Engenharia']],ext:['Fornecedores em garantia','Administradora de condomínio'],mod:['Assistência técnica','Portal do cliente'],ent:['Chamados encerrados','Relatório de recorrência'],sla:'1º atendimento em 72 horas',aj:['Prazo por tipo de problema','Quem pode recusar um chamado']},
+];
+
+const APROV=[
+ {id:'PC-4471',tipo:'Pedido de compra',desc:'Elevadores, 4 unidades panorâmicas, Altus Elevadores',obra:'Aurora',valor:'R$ 6.840.000',sol:'Fernanda Lima',etapa:'3 de 3',to:['diretoria']},
+ {id:'AD-0193',tipo:'Aditivo contratual',desc:'Gruas Sul: prorrogação da locação da grua por 4 meses',obra:'Aurora',valor:'R$ 412.000',sol:'Marcos Teixeira',etapa:'2 de 2',to:['diretoria']},
+ {id:'DC-0088',tipo:'Desconto comercial',desc:'Unidade 2401: 7% sobre a tabela para pagamento à vista',obra:'Aurora',valor:'R$ 5.120.000',sol:'Camila Duarte',etapa:'2 de 2',to:['diretoria','comercial']},
+ {id:'CI-0012',tipo:'Comitê de investimento',desc:'Aquisição do terreno Savassi: permuta de 22% mais R$ 18 mi',obra:'Novo terreno',valor:'R$ 18.000.000',sol:'Larissa Campos',etapa:'1 de 1',to:['diretoria','incorporacao']},
+ {id:'PG-7710',tipo:'Pagamento',desc:'Medição nº 14, Instaladora Voltare (elétrica)',obra:'Aurora',valor:'R$ 684.320',sol:'Juliana Prado',etapa:'2 de 3',to:['financeiro','diretoria']},
+ {id:'PG-7715',tipo:'Pagamento',desc:'NF 22.918, Concreteira Atlântica, 312 m³ fck 40',obra:'Aurora',valor:'R$ 187.200',sol:'Paulo Henrique Rocha',etapa:'1 de 2',to:['financeiro']},
+ {id:'RC-2324',tipo:'Requisição',desc:'Andaime fachadeiro, locação por 90 dias',obra:'Vértice',valor:'R$ 96.400',sol:'Natália Brandão',etapa:'1 de 2',to:['engenharia']},
+ {id:'RC-2326',tipo:'Requisição',desc:'Manta asfáltica 4 mm, 1.200 m²',obra:'Aurora',valor:'R$ 58.800',sol:'Juliana Prado',etapa:'1 de 2',to:['engenharia','suprimentos']},
+ {id:'MD-0531',tipo:'Medição',desc:'Medição nº 9, Armação Forte, 18º pavimento',obra:'Aurora',valor:'R$ 212.600',sol:'Juliana Prado',etapa:'1 de 2',to:['engenharia']},
+ {id:'PJ-0142',tipo:'Revisão de projeto',desc:'Revisão 04 do projeto de fachada em pele de vidro',obra:'Maré',valor:'Sem custo',sol:'Moreau Arquitetura',etapa:'1 de 2',to:['incorporacao','engenharia']},
+ {id:'PC-4478',tipo:'Pedido de compra',desc:'Concreto fck 45, 1.800 m³, Concreteira Atlântica',obra:'Maré',valor:'R$ 1.116.000',sol:'Fernanda Lima',etapa:'2 de 3',to:['suprimentos','diretoria']},
+];
+
+const PESSOAS={'Ricardo Albuquerque':'Diretor-presidente','Helena Vasconcelos':'Diretora financeira','Larissa Campos':'Incorporação e projetos','Dr. Otávio Reis':'Jurídico imobiliário','Marcos Teixeira':'Gerente de obras','Juliana Prado':'Engenheira residente','Bruno Kato':'Planejamento e orçamento','Sebastião Moura':'Mestre de obras','Patrícia Gomes':'Técnica de segurança','Fernanda Lima':'Suprimentos','Paulo Henrique Rocha':'Analista financeiro','Camila Duarte':'Gerente comercial','Rafael Nogueira':'Corretor','Diego Farias':'Assistência técnica','Thiago Mendes':'Administrador do sistema'};
+
+const ORG=[
+ ['Incorporação e projetos',6,[['Larissa Campos','Gerente de incorporação e projetos'],['Dr. Otávio Reis','Jurídico imobiliário'],['Beatriz Kuhn','Analista de legalização']]],
+ ['Engenharia',34,[['Marcos Teixeira','Gerente de obras'],['Juliana Prado','Engenheira residente, Aurora'],['Rogério Assis','Engenheiro residente, Maré'],['Natália Brandão','Engenheira residente, Vértice'],['Bruno Kato','Planejamento e orçamento'],['Patrícia Gomes','Técnica de segurança do trabalho'],['Diego Farias','Coordenador de assistência técnica']]],
+ ['Campo',248,[['Sebastião Moura','Mestre de obras, Aurora'],['Joaquim Ferraz','Mestre de obras, Maré'],['Valdir Santana','Encarregado geral, Vértice']]],
+ ['Suprimentos',7,[['Fernanda Lima','Coordenadora de suprimentos'],['Lucas Amaral','Comprador'],['Renan Torres','Almoxarife, Aurora']]],
+ ['Financeiro',9,[['Paulo Henrique Rocha','Analista financeiro'],['Sílvia Matos','Contas a receber e cobrança']]],
+ ['Comercial',14,[['Camila Duarte','Gerente comercial'],['Rafael Nogueira','Corretor'],['Ana Sofia Ribeiro','Corretora']]],
+ ['Tecnologia',3,[['Thiago Mendes','Administrador do sistema']]],
+];
+const PARC=[['Fornecedores homologados','86','Concreteira Atlântica, Aço Forte, Altus Elevadores, Lumina Esquadrias, Terra Nobre Revestimentos'],['Empreiteiros de mão de obra','23','Armação Forte, Forma Certa Carpintaria, Massa Fina Alvenaria, Instaladora Voltare'],['Projetistas','12','Moreau Arquitetura, Calcular Estrutural, Lux Luminotécnica, Fluxo Projetos'],['Imobiliárias parceiras','5','Prime Estates, Litoral Select'],['Bancos','2','Banco Meridional, financiador da produção e do repasse'],['Clientes','412','Proprietários com acesso ao portal do cliente']];
+
+const FORN=[
+ ['Concreteira Atlântica','Concreto usinado','Curitiba/PR',4.7,'Homologado','Em dia',3],
+ ['Aço Forte Distribuidora','Aço e armação','Araucária/PR',4.4,'Homologado','Em dia',2],
+ ['Armação Forte Empreiteira','Mão de obra de armação','Curitiba/PR',4.2,'Homologado','Em dia',1],
+ ['Instaladora Voltare','Instalações elétricas','São José dos Pinhais/PR',4.5,'Homologado','Em dia',2],
+ ['Hidráulica Fluxo','Instalações hidráulicas','Curitiba/PR',4.1,'Homologado','CND trabalhista vence em 6 dias',2],
+ ['Altus Elevadores','Elevadores','Joinville/SC',4.8,'Homologado','Em dia',3],
+ ['Lumina Esquadrias','Esquadrias de alumínio','Caxias do Sul/RS',4.3,'Homologado','Em dia',2],
+ ['Cristal Prime Vidros','Vidros e pele de vidro','Brasília/DF',3.6,'Em reavaliação','Em dia',1],
+ ['Terra Nobre Revestimentos','Porcelanatos','Criciúma/SC',4.6,'Homologado','Em dia',2],
+ ['Gruas Sul Locações','Equipamentos','Curitiba/PR',4.0,'Homologado','Em dia',2],
+ ['Selare Impermeabilização','Impermeabilização','Brasília/DF',4.4,'Homologado','Em dia',2],
+ ['Nova Gesso Acabamentos','Gesso e forro','Curitiba/PR',null,'Em homologação','Falta certidão do FGTS',0],
+];
+
+const ALMOX=[['Cimento CP-II 50 kg','sc',820,600,410],['Aço CA-50 10 mm','t',18.4,25,9.2],['Bloco cerâmico 14×19×39','un',12400,8000,5200],['Argamassa colante AC-III','sc',310,400,180],['Eletroduto corrugado 25 mm','m',3200,2000,900],['Tubo PVC esgoto 100 mm','m',420,300,96],['Tela soldada Q-138','un',96,80,24],['Desmoldante para fôrmas','L',220,200,110],['Luva de vaqueta (EPI)','par',140,200,95],['Capacete classe B (EPI)','un',64,40,6]];
+
+const KB=[
+ ['Requisição',[['RC-2326','Manta asfáltica 4 mm, 1.200 m²','Aurora','Juliana Prado'],['RC-2327','Quadros e disjuntores, 10º ao 14º','Aurora','Juliana Prado'],['RC-2329','Aço para gaiolas de estacas, 38 t','Maré','Rogério Assis'],['RC-2330','Luvas de vaqueta, 300 pares','Aurora','Patrícia Gomes']]],
+ ['Cotação',[['RC-2321','Porcelanato 120×120, 3.800 m²','Aurora','3 de 3 propostas'],['RC-2318','Aço CA-50, 42 t','Maré','2 de 3 propostas'],['RC-2316','Forro de gesso, 2.600 m²','Vértice','1 de 3 propostas']]],
+ ['Aprovação',[['PC-4471','Elevadores panorâmicos, 4 un.','Aurora','R$ 6,84 mi'],['PC-4476','Esquadrias de alumínio','Aurora','R$ 2,31 mi'],['PC-4478','Concreto fck 45, 1.800 m³','Maré','R$ 1,12 mi']]],
+ ['Pedido emitido',[['PC-4468','Concreto fck 40, 640 m³','Aurora','Entrega parcial'],['PC-4465','Tubos e conexões','Aurora','Entrega 14/11'],['PC-4462','Louças e metais','Vértice','Entrega 19/11'],['PC-4460','Locação de grua','Maré','Montagem 25/11']]],
+ ['Entregue',[['PC-4455','Cimento CP-II, 1.600 sc','Aurora','Conferido'],['PC-4452','Tela soldada Q-138','Aurora','Conferido'],['PC-4450','Pele de vidro, lote 3','Vértice','Com não conformidade'],['PC-4447','Bloco cerâmico, 40 mil un.','Aurora','Conferido']]],
+];
+
+const COT={id:'RC-2321',item:'Porcelanato 120×120 polido retificado',qtd:3800,orc:205,need:'até 10/12/2026',f:[
+ {n:'Terra Nobre Revestimentos',pu:198,frete:0,prazo:25,pg:'30/60/90 dias',nota:4.6,obs:'Lote único de fabricação'},
+ {n:'Casa Brasil Revestimentos',pu:189.5,frete:18400,prazo:40,pg:'28 dias',nota:4.1,obs:'Prazo depois da data necessária'},
+ {n:'Porcellana Distribuidora',pu:214,frete:0,prazo:15,pg:'30/60 dias',nota:4.5,obs:'Estoque imediato'}]};
+
+const PAGAR=[
+ ['10/11','Concreteira Atlântica','NF 22.918','Aurora',187200,'Aprovado'],
+ ['11/11','Instaladora Voltare','Medição nº 14','Aurora',684320,'Aguardando aprovação'],
+ ['12/11','Aço Forte Distribuidora','NF 8.441','Maré',412880,'Aprovado'],
+ ['13/11','Gruas Sul Locações','Locação de outubro','Aurora',103000,'Aprovado'],
+ ['14/11','Folha de pagamento','Equipe própria, 3 obras','Todos',2184600,'Programado'],
+ ['16/11','Lumina Esquadrias','Sinal de 30%','Aurora',693000,'Aguardando contrato'],
+ ['18/11','Selare Impermeabilização','Medição nº 6','Vértice',96450,'Aprovado'],
+ ['20/11','Tributos do RET','4% das receitas de outubro','Todos',1548000,'Programado'],
+ ['23/11','Cristal Prime Vidros','NF 3.302','Vértice',268900,'Retido por não conformidade'],
+];
+const RECEBER=[
+ ['Beatriz Montenegro','Aurora 1802','Parcela 24 de 36','15/11/2026',48300,'A vencer'],
+ ['Renata Vilela','Aurora 1404','Parcela 19 de 36','20/11/2026',44900,'A vencer'],
+ ['Eduardo e Marina Falcão','Aurora 2202','Parcela 23 de 36','31/10/2026',52100,'Atrasado há 10 dias'],
+ ['Leonardo Brandão','Maré 3101','Sinal','05/11/2026',1240000,'Pago'],
+ ['Clínica Vitta','Vértice 803','Parcela 31 de 32','10/11/2026',28700,'Pago'],
+ ['Família Arruda','Lumen 1501','Repasse bancário','04/11/2026',2890000,'Liberado pelo banco'],
+ ['Grupo Halley Participações','Vértice 1201 a 1204','Repasse bancário','30/04/2027',9840000,'Em análise no banco'],
+];
+const AFET=[['Peninsula Aurora',62.4],['Peninsula Maré',71.8],['Peninsula Vértice',21.9],['Peninsula Lumen',9.6],['Quinta da Serra (SPE em formação)',18.6]];
+const CX={m:['nov','dez','jan','fev','mar','abr','mai','jun','jul','ago','set','out'],e:[52.1,48.3,61.7,44.2,46.8,142.6,49.4,51.2,63.5,47.8,52.6,58.9],s:[38.7,41.2,36.9,43.5,45.1,47.0,44.8,46.3,48.9,47.2,49.6,50.1]};
+
+const LEADS=[
+ ['Novo contato',[['Henrique Paiva','Maré, 3 suítes','Site','R$ 12,4 mi'],['Clara Bittencourt','Aurora, cobertura','Instagram','R$ 6,8 mi'],['Fábio Werneck','Vértice, 2 conjuntos','Indicação','R$ 5,1 mi']]],
+ ['Primeiro contato',[['Marina Accioly','Aurora, 4 suítes','Stand','R$ 5,6 mi'],['Otto Schreiber','Maré, 4 suítes','Prime Estates','R$ 13,1 mi']]],
+ ['Visita ao decorado',[['Patrícia e Jorge Lins','Aurora, 3 suítes','Site','R$ 4,3 mi'],['Rodrigo Mattar','Maré, 3 suítes','Indicação','R$ 11,9 mi']]],
+ ['Proposta',[['Eduarda Fontes','Aurora 2401','Stand','R$ 5,1 mi'],['Instituto Novaes','Vértice, 4 conjuntos','Corretor','R$ 9,8 mi']]],
+ ['Análise de crédito',[['Vinícius Arantes','Maré 3602','Litoral Select','R$ 12,7 mi']]],
+ ['Contrato',[['Luísa Peixoto','Aurora 1503','Indicação','R$ 4,4 mi']]],
+];
+
+const PLAN=[0,1.8,3.8,5.9,8.2,10.6,13.2,15.9,18.7,21.7,24.8,28.0,31.3,34.6,38.0,41.5,45.0,48.4,51.9,55.3,58.6,61.9,65.0,68.1,71.0,73.8,76.4,78.9,81.3,83.5,85.5,87.5,89.2,90.9,92.4,93.8,95.1,96.3,97.3,98.3,99.2,100];
+const REAL=[0,1.8,3.8,5.9,8.2,10.5,13.1,15.8,18.5,21.4,24.5,27.5,30.7,33.9,37.1,40.4,43.7,46.9,50.1,53.3,56.3,59.2,62.0];
+const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const MLAB=Array.from({length:42},(_,i)=>MES[i%12]+'/'+String(25+Math.floor(i/12)));
+
+const TASKS=[
+ ['Mobilização e canteiro','Gruas Sul, equipe própria',0,2,100],
+ ['Fundações em hélice contínua','Concreteira Atlântica',1,6,100],
+ ['Subsolos e térreo','Equipe própria',5,10,100],
+ ['Estrutura, 28 pavimentos','Forma Certa, Armação Forte',9,27,68],
+ ['Alvenaria e vedações','Massa Fina Alvenaria',13,31,40],
+ ['Instalações elétricas e hidráulicas','Voltare, Hidráulica Fluxo',15,34,30],
+ ['Impermeabilização','Selare',18,35,25],
+ ['Fachada em pele de vidro','Lumina, Cristal Prime',22,36,3],
+ ['Revestimentos e acabamentos','Terra Nobre e equipe própria',21,39,6],
+ ['Elevadores','Altus Elevadores',30,37,0],
+ ['Áreas comuns e paisagismo','A contratar',34,40,0],
+ ['Vistorias e entrega','Engenharia e relacionamento',39,42,0],
+];
+const SERV=[['Estrutura',18,19],['Alvenaria',12,13],['Instalações',9,10],['Impermeab.',8,9],['Contrapiso',6,7],['Revestimento',3,4],['Esquadrias',0,1],['Pintura',0,0]];
+const BUD=[['Fundações',18.6,19.4],['Estrutura',52.8,38.2],['Alvenaria e vedações',14.2,6.8],['Instalações',31.5,11.6],['Fachada',27.9,8.4],['Acabamentos',58.4,9.7],['Elevadores',9.1,2.7],['Canteiro e equipamentos',21.3,15.9],['Administração local',14.2,9.1]];
+
+const MED=[
+ ['Armação Forte Empreiteira','Armação, 18º pavimento','Medição nº 9',212600,1840000,71,'Aguardando engenharia'],
+ ['Forma Certa Carpintaria','Fôrmas, 18º e 19º','Medição nº 11',178900,2210000,66,'Aguardando engenharia'],
+ ['Instaladora Voltare','Elétrica, 8º e 9º','Medição nº 14',684320,7400000,34,'Aprovada pela engenharia'],
+ ['Massa Fina Alvenaria','Alvenaria, 11º e 12º','Medição nº 7',143200,2960000,41,'Aprovada pela engenharia'],
+ ['Selare Impermeabilização','Banheiros, Vértice','Medição nº 6',96450,1120000,82,'Programada para 18/11'],
+];
+
+const USERS=[['Ricardo Albuquerque','Diretoria','Todos','há 12 min','Ativo'],['Helena Vasconcelos','Financeiro','Todos','há 1 h','Ativo'],['Larissa Campos','Incorporação','Todos','há 35 min','Ativo'],['Marcos Teixeira','Gerente de obras','Aurora, Maré, Vértice','há 4 min','Ativo'],['Juliana Prado','Engenheiro','Aurora','agora','Ativo'],['Sebastião Moura','Mestre de obras','Aurora','há 26 min','Ativo'],['Fernanda Lima','Suprimentos','Todos','há 8 min','Ativo'],['Camila Duarte','Comercial','Aurora, Maré, Vértice','há 2 h','Ativo'],['Rafael Nogueira','Corretor parceiro','Aurora, Maré','ontem','Ativo'],['André Siqueira','Fornecedor','Concreteira Atlântica','ontem','Ativo'],['Beatriz Montenegro','Cliente','Aurora 1802','há 3 dias','Ativo'],['Carlos Brito','Engenheiro','Lumen','há 92 dias','Suspenso por inatividade']];
+const PERF=['Diretoria','Gerente de obras','Engenheiro','Mestre de obras','Suprimentos','Financeiro','Comercial','Corretor parceiro','Cliente','Fornecedor'];
+const MODS=['Obras','Compras','Financeiro','Vendas','Projetos','Pessoas','Configurações'];
+const LV=['Sem acesso','Ver','Editar','Aprovar'];
+const AUD=[['10/11 11:48','Juliana Prado','Assinou a ficha de verificação FVS-118','Aurora'],['10/11 11:31','Fernanda Lima','Enviou o mapa de cotação RC-2321 para aprovação','Aurora'],['10/11 10:57','Helena Vasconcelos','Aprovou o pagamento PG-7708 de R$ 96.450','Vértice'],['10/11 10:12','Thiago Mendes','Alterou a 1ª alçada de compras de R$ 15.000 para R$ 20.000','Configurações'],['10/11 09:40','Camila Duarte','Reservou a unidade 2401 por 48 horas','Aurora'],['10/11 08:15','André Siqueira','Confirmou a concretagem de 13/11 às 6h30','Portal do fornecedor'],['10/11 07:02','Sebastião Moura','Registrou efetivo de 214 pessoas','Aurora'],['09/11 18:22','Beatriz Montenegro','Baixou o extrato financeiro','Portal do cliente'],['09/11 17:45','Marcos Teixeira','Aprovou a medição nº 8 da Massa Fina Alvenaria','Aurora'],['09/11 16:03','Sistema','Suspendeu o acesso de Carlos Brito após 90 dias sem uso','Usuários']];
+const ROLES=['Engenheiro residente','Gerente de obras','Gerente de obras e suprimentos','Coordenadora de suprimentos','Analista financeiro','Diretora financeira','Gerente comercial','Jurídico','Diretoria'];
+
+const TER=[
+ {n:'Ecoville',loc:'Curitiba/PR',area:'4.200 m²',et:'Due diligence',vgv:520,neg:'Permuta de 18% do VGV'},
+ {n:'Jurerê Internacional',loc:'Florianópolis/SC',area:'6.800 m²',et:'Viabilidade',vgv:740,neg:'Compra por R$ 64 mi'},
+ {n:'Savassi',loc:'Belo Horizonte/MG',area:'2.950 m²',et:'Comitê',vgv:298,neg:'Permuta de 22% mais R$ 18 mi'},
+ {n:'Lago Sul',loc:'Brasília/DF',area:'12.400 m²',et:'Prospecção',vgv:null,neg:'Conversa inicial com o espólio'},
+ {n:'Praia Brava',loc:'Itajaí/SC',area:'3.100 m²',et:'Prospecção',vgv:null,neg:'Aguardando estudo de massa'},
+ {n:'Quinta da Serra',loc:'Nova Lima/MG',area:'86.000 m²',et:'Adquirido',vgv:310,neg:'Compra quitada em jun/2026'},
+];
+const GED=[['ARQ-EX-101','Planta do pavimento tipo','Arquitetura','Moreau Arquitetura','R04','Aprovado'],['EST-FU-012','Locação de blocos de fundação','Estrutural','Calcular Estrutural','R02','Liberado para obra'],['FAC-DT-007','Detalhe da pele de vidro','Fachada','Moreau Arquitetura','R04','Em análise'],['HID-PT-020','Prumadas hidráulicas','Hidráulica','Fluxo Projetos','R03','Conflito com a estrutura'],['ELE-QD-014','Quadros de distribuição','Elétrica','Voltare Projetos','R01','Em análise'],['LUM-AC-003','Luminotécnico das áreas comuns','Luminotécnico','Lux Luminotécnica','R00','Em elaboração']];
+const LEGAL=[['Matrícula e certidões do imóvel','mai/2026','Concluído'],['Licença prévia ambiental','ago/2026','Concluído'],['Aprovação do projeto legal na prefeitura','previsão dez/2026','Em análise, protocolo 2026/18.442'],['Alvará de construção','previsão jan/2027','Aguardando'],['Registro de incorporação','previsão fev/2027','Aguardando'],['Lançamento comercial','previsão mar/2027','Aguardando']];
+
+/* ============ ESTADO ============ */
+const S={persona:null,pick:'diretoria',view:null,phase:5,esp:'aurora',flow:'compra',sim:180000,via:{preco:24300,custo:6900,perm:18},
+ ap:APROV.map(a=>({...a})),oc:[['15h10','Chuva forte por 40 minutos; concretagem do 19º já concluída, serviços externos paralisados.'],['10h30','Visita técnica do Banco Meridional para a medição nº 23.']],
+ ef:{'Pedreiros':38,'Carpinteiros':42,'Armadores':31,'Serventes':54,'Eletricistas':18,'Encanadores':12,'Outros':19},
+ tk:[['DDS às 7h: trabalho em altura na periferia da laje',1],['Conferir armação dos pilares do 20º antes de liberar',1],['Receber 48 m³ de concreto para os pilares do 20º',0],['Liberar frente de alvenaria no 13º pavimento',0],['Fotografar a concretagem para o diário',0]],
+ pers:{piso:0,banc:0,metal:0,auto:0},pay:new Set(),units:{},cotq:{},
+ perm:[[3,3,3,3,3,2,2],[3,3,1,1,2,1,0],[2,2,0,0,1,0,0],[2,1,0,0,1,0,0],[1,3,1,0,1,0,0],[1,1,3,1,0,1,0],[1,0,1,3,1,0,0],[0,0,0,2,0,0,0],[1,0,1,0,0,0,0],[0,2,1,0,0,0,0]],
+ flows:{
+  compra:{n:'Pedido de compra',u:'R$',fx:[[20000,'Engenheiro residente'],[250000,'Gerente de obras e suprimentos'],[null,'Diretoria']],op:[['Exigir no mínimo três cotações',1],['Bloquear compra acima do orçamento da etapa',1],['Avisar aprovadores pelo WhatsApp',1]],sla:24,sim:180000},
+  pagamento:{n:'Pagamento',u:'R$',fx:[[50000,'Analista financeiro'],[500000,'Diretora financeira'],[null,'Diretoria']],op:[['Exigir nota fiscal conferida pela obra',1],['Pagar somente às terças e quintas',1],['Dupla assinatura na última faixa',1]],sla:48,sim:320000},
+  desconto:{n:'Desconto comercial',u:'%',fx:[[3,'Gerente comercial'],[6,'Diretora financeira'],[null,'Diretoria']],op:[['Reserva expira em 48 horas',1],['Exigir análise de crédito antes do contrato',1]],sla:12,sim:7},
+  medicao:{n:'Medição de empreiteiro',u:'R$',fx:[[100000,'Engenheiro residente'],[null,'Gerente de obras']],op:[['Exigir fotos do serviço medido',1],['Reter 5% como garantia contratual',1]],sla:48,sim:212600},
+  aditivo:{n:'Aditivo contratual',u:'R$',fx:[[null,'Diretoria']],op:[['Exigir parecer do jurídico',1]],sla:72,sim:412000},
+ }};
+
+/* ============ AJUDANTES ============ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf=(n,d=0)=>Number(n).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const brl=(n,d=0)=>'R$\u00a0'+nf(n,d);
+const mi=n=>'R$\u00a0'+nf(n,1)+'\u00a0mi';
+const ini=n=>n.replace('Dr. ','').split(' ').filter(Boolean).map(w=>w[0]).filter((c,i,a)=>i===0||i===a.length-1).join('').toUpperCase();
+function badge(t,k){return `<span class="b${k==='cross'?' b-risk':''}"><i class="sw sw-${k}"></i>${t}</span>`}
+function st(t){const s=t.toLowerCase();let k='out';
+ if(/atras|fora do sla|reprov|retid|conflito|vencid|abaixo|recus|atenção|suspens|não conform|offline|paralis|pendência/.test(s))k='cross';
+ else if(/aguard|pendente|análise|agendad|programad|a vencer|reserv|(^|\s)em (?!dia)|vence em|ressalva|elabora|parcial|falta|aberta|enviad/.test(s))k='hatch';
+ else if(/aprovad|conclu|pago|paga|vendid|homolog|liberad|entregue|em dia|conectado|ativo|tratada|adquirido|conferido|no prazo|assinad|válid|confirmad|dentro|conforme/.test(s))k='solid';
+ return badge(t,k)}
+function head(t,sub,act=''){return `<div class="ph1"><div><h1>${t}</h1>${sub?`<p>${sub}</p>`:''}</div>${act?`<div class="acts">${act}</div>`:''}</div>`}
+function kpis(a){return `<div class="kpis">${a.map(([l,v,s])=>`<div class="kpi"><div class="kpi-l">${l}</div><div class="kpi-v">${v}</div>${s?`<div class="kpi-s">${s}</div>`:''}</div>`).join('')}</div>`}
+function panel(t,b,act='',flush=false){return `<section class="panel"><header><h3>${t}</h3>${act}</header><div class="pbody${flush?' flush':''}">${b}</div></section>`}
+function table(h,rows,cls=''){return `<div class="tw"><table class="tbl ${cls}"><thead><tr>${h.map(x=>{const r=x.startsWith('>');return `<th${r?' class="r"':''}>${r?x.slice(1):x}</th>`}).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`}
+function pbar(p,plan){return `<div class="pbw"><div class="pb"><i style="width:${p}%"></i>${plan!=null?`<b style="left:${plan}%"></b>`:''}</div><span>${p}%</span></div>`}
+function av(n,ext,cls='sm'){return `<span class="av ${cls}${ext?' ext':''}" aria-hidden="true">${ini(n)}</span>`}
+function person(n,r){return `<div>${av(n)}<div>${n}<small>${r||PESSOAS[n]||''}</small></div></div>`}
+function legend(items){return `<div class="legend">${items.map(([k,t])=>`<span><i class="sw sw-${k}"></i>${t}</span>`).join('')}</div>`}
+function empty(t,p){return `<div class="empty"><h4>${t}</h4><p>${p}</p></div>`}
+let tT;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),3400)}
+function openDrawer(h){$('#drawer-c').innerHTML=h;$('#drawer').classList.add('on');$('#dscrim').classList.add('on');setTimeout(()=>$('#drawer .dr-x').focus(),50)}
+function closeDrawer(){$('#drawer').classList.remove('on');$('#dscrim').classList.remove('on')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();toggleSide(false)}});
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+/* ============ DESENHOS ============ */
+function tower(o){
+ const W=o.w||100,H=o.h||200,pad=6,bw=W*(o.bw||.58),x0=(W-bw)/2,base=H-pad-(o.fund?10:0),fh=(base-pad-6)/o.f,bg=o.bg||'var(--surface-2)';
+ let s=`<svg viewBox="0 0 ${W} ${H}" class="tw-svg" style="${o.style||''}" aria-hidden="true"><defs><pattern id="hp${o.id||''}" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="4" stroke="currentColor" stroke-width="1"/></pattern></defs>`;
+ s+=`<rect x="${x0+bw*.2}" y="${base-o.f*fh-5}" width="${bw*.6}" height="5" fill="none" stroke="currentColor" stroke-width=".6" stroke-dasharray="${o.d>=o.f?'0':'2 2'}"/>`;
+ for(let i=1;i<=o.f;i++){const y=base-i*fh,k=i<=o.d?'d':(i===o.p?'p':'f');
+  s+=`<rect x="${x0}" y="${y}" width="${bw}" height="${fh}" fill="${k==='d'?'currentColor':k==='p'?`url(#hp${o.id||''})`:'none'}" style="stroke:${k==='d'?bg:'currentColor'}" stroke-width="${k==='d'?.7:.6}" ${k==='f'?'stroke-dasharray="2 2" opacity=".6"':''}/>`;}
+ if(o.hi){const y=base-o.hi*fh;s+=`<rect x="${x0-3}" y="${y-1}" width="${bw+6}" height="${fh+2}" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="${x0+bw+3}" x2="${W-2}" y1="${y+fh/2}" y2="${y+fh/2}" stroke="currentColor" stroke-width="1"/>`}
+ if(o.fund){s+=`<rect x="${x0}" y="${base}" width="${bw}" height="10" fill="url(#hp${o.id||''})" stroke="currentColor" stroke-width=".6"/>`}
+ s+=`<line x1="2" x2="${W-2}" y1="${base}" y2="${base}" stroke="currentColor" stroke-width="1"/></svg>`;return s}
+function houses(){let s=`<svg viewBox="0 0 100 200" class="tw-svg" aria-hidden="true">`;
+ for(let r=0;r<3;r++)for(let c=0;c<2;c++){const x=10+c*44,y=70+r*40;s+=`<path d="M${x} ${y+28}V${y+12}l18-12 18 12v16z" fill="none" stroke="currentColor" stroke-width=".7" stroke-dasharray="2 2" opacity=".7"/>`}
+ return s+`<line x1="2" x2="98" y1="194" y2="194" stroke="currentColor"/></svg>`}
+function loginArt(){
+ const W=420,H=600,base=566,fh=15.5,x0=140,bw=150,F=28,D=18,Pg=19;let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Desenho técnico da fachada do Peninsula Aurora com a estrutura no 19º pavimento"><defs><pattern id="lh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="#fff" stroke-width="1"/></pattern></defs><g fill="none" stroke="#fff">`;
+ for(let i=1;i<=F;i++){const y=base-i*fh;
+  if(i<=D){s+=`<rect x="${x0}" y="${y}" width="${bw}" height="${fh}" stroke-width=".8"/>`;for(let m=1;m<6;m++)s+=`<line x1="${x0+m*bw/6}" x2="${x0+m*bw/6}" y1="${y+2}" y2="${y+fh-2}" stroke-width=".5" opacity=".6"/>`}
+  else if(i===Pg){s+=`<rect x="${x0}" y="${y}" width="${bw}" height="${fh}" fill="url(#lh)" stroke-width=".8"/>`}
+  else s+=`<rect x="${x0}" y="${y}" width="${bw}" height="${fh}" stroke-width=".6" stroke-dasharray="3 3" opacity=".45"/>`}
+ const top=base-F*fh;s+=`<rect x="${x0+30}" y="${top-14}" width="${bw-60}" height="14" stroke-width=".6" stroke-dasharray="3 3" opacity=".45"/>`;
+ // grua
+ const mx=322,jy=72;let z=`M${mx-6} ${base}`;for(let y=base;y>jy+8;y-=14)z+=` L${mx+6} ${y-7} L${mx-6} ${y-14}`;
+ s+=`<line x1="${mx-6}" x2="${mx-6}" y1="${base}" y2="${jy}" stroke-width=".9"/><line x1="${mx+6}" x2="${mx+6}" y1="${base}" y2="${jy}" stroke-width=".9"/><path d="${z}" stroke-width=".5" opacity=".8"/>`;
+ s+=`<line x1="96" x2="${mx+70}" y1="${jy}" y2="${jy}" stroke-width=".9"/><line x1="96" x2="${mx+70}" y1="${jy+8}" y2="${jy+8}" stroke-width=".9"/>`;let jz=`M96 ${jy+8}`;for(let x=96;x<mx+70;x+=12)jz+=` L${x+6} ${jy} L${x+12} ${jy+8}`;s+=`<path d="${jz}" stroke-width=".5" opacity=".8"/>`;
+ s+=`<path d="M${mx} ${jy} L${mx} ${jy-34} M${mx} ${jy-34} L130 ${jy} M${mx} ${jy-34} L${mx+66} ${jy}" stroke-width=".6"/><rect x="${mx+48}" y="${jy+8}" width="22" height="16" fill="#fff"/><rect x="${mx-14}" y="${jy+8}" width="14" height="12" stroke-width=".8"/>`;
+ s+=`<line x1="200" x2="200" y1="${jy+8}" y2="${base-Pg*fh-40}" stroke-width=".6"/><path d="M196 ${base-Pg*fh-40} h8 v4 a4 4 0 0 1 -8 0z" stroke-width=".7"/><rect x="170" y="${base-Pg*fh-30}" width="60" height="6" fill="#fff"/>`;
+ // cotas
+ s+=`<line x1="108" x2="108" y1="${top}" y2="${base}" stroke-width=".6" opacity=".7"/><line x1="102" x2="114" y1="${top}" y2="${top}" stroke-width=".6"/><line x1="102" x2="114" y1="${base}" y2="${base}" stroke-width=".6"/><line x1="102" x2="114" y1="${base-D*fh}" y2="${base-D*fh}" stroke-width=".6"/>`;
+ s+=`<line x1="${x0+bw+4}" x2="${mx+8}" y1="${base-Pg*fh+fh/2}" y2="${base-Pg*fh+fh/2}" stroke-width=".6"/><line x1="20" x2="${W-20}" y1="${base}" y2="${base}" stroke-width="1.2"/></g>`;
+ s+=`<g fill="#8a8a8a" font-family="Jost,sans-serif" font-size="11"><text transform="translate(96 ${(top+base)/2}) rotate(-90)" text-anchor="middle">28 pavimentos, 92 m de altura</text><text x="${mx+12}" y="${base-Pg*fh+11}" fill="#fff">19º em execução</text></g></svg>`;return s}
+function crane(seed){const r=rng(seed);const h=40+r()*30;return `<svg viewBox="0 0 160 100" aria-hidden="true"><rect width="160" height="100" fill="var(--surface-2)"/><g fill="none" stroke="currentColor" stroke-width=".8"><line x1="0" x2="160" y1="88" y2="88"/>${Array.from({length:5},(_,i)=>`<rect x="${40+i*0}" y="${88-(i+1)*(h/5)}" width="44" height="${h/5}" ${i>2?'stroke-dasharray="2 2"':''}/>`).join('')}<line x1="118" x2="118" y1="88" y2="10"/><line x1="122" x2="122" y1="88" y2="10"/><line x1="20" x2="150" y1="10" y2="10"/>${(()=>{const hx=60+r()*40;return `<line x1="${hx}" x2="${hx}" y1="10" y2="${30+r()*10}"/>`})()}</g></svg>`}
+
+/* ============ GRÁFICOS ============ */
+function lineChart(o){const W=o.w||720,H=o.h||250,L=44,R=16,T=16,B=30,n=o.n,max=o.max;
+ const x=i=>L+(W-L-R)*i/(n-1),y=v=>T+(H-T-B)*(1-v/max);let s=`<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="${o.aria}">`;
+ for(let k=0;k<=4;k++){const v=max*k/4;s+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-8}" y="${y(v)+4}" text-anchor="end">${o.yf?o.yf(v):v}</text>`}
+ o.labels.forEach((l,i)=>{if(l)s+=`<text class="ax" x="${x(i)}" y="${H-8}" text-anchor="middle">${l}</text>`});
+ o.series.forEach(se=>{s+=`<polyline class="${se.c}" points="${se.d.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ')}"/>`});
+ if(o.today!=null){const t=o.today,v=o.series[o.series.length-1].d[t];s+=`<line class="today" x1="${x(t)}" x2="${x(t)}" y1="${T}" y2="${H-B}"/><circle cx="${x(t)}" cy="${y(v)}" r="4" fill="var(--ink)"/><text class="ax" x="${x(t)+8}" y="${T+10}">Hoje</text>`}
+ return s+'</svg>'}
+function lineLegend(a){return `<div class="legend">${a.map(([d,t])=>`<span><svg width="22" height="8" aria-hidden="true"><line x1="0" x2="22" y1="4" y2="4" style="stroke:var(--${d?'ink-3':'ink'})" stroke-width="${d?1.5:2}" ${d?'stroke-dasharray="5 4"':''}/></svg>${t}</span>`).join('')}</div>`}
+function barChart(vals,labs,o={}){const W=720,H=240,L=44,R=10,T=14,B=30,n=vals.length,max=o.max||Math.ceil(Math.max(...vals)/20)*20,bw=(W-L-R)/n,y=v=>T+(H-T-B)*(1-v/max);
+ let s=`<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="${o.aria||''}"><defs><pattern id="bh${o.id||''}" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" style="stroke:var(--ink)" stroke-width="1.2"/></pattern></defs>`;
+ for(let k=0;k<=4;k++){const v=max*k/4;s+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-8}" y="${y(v)+4}" text-anchor="end">${nf(v)}</text>`}
+ vals.forEach((v,i)=>{const x=L+i*bw+bw*.24,w=bw*.52;s+=`<rect x="${x}" y="${y(v)}" width="${w}" height="${y(0)-y(v)}" style="fill:${o.hl===i?`url(#bh${o.id||''})`:'var(--ink)'};stroke:var(--ink)"/><text class="ax" x="${x+w/2}" y="${H-8}" text-anchor="middle">${labs[i]}</text>`});
+ return s+'</svg>'}
+function cashChart(){const W=720,H=260,L=44,R=48,T=16,B=30,n=12,max=150,smax=400,bw=(W-L-R)/n;let sal=184.3;const sl=CX.e.map((e,i)=>sal+=e-CX.s[i]);
+ const y=v=>T+(H-T-B)*(1-v/max),ys=v=>T+(H-T-B)*(1-v/smax);
+ let s=`<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Fluxo de caixa projetado de novembro de 2026 a outubro de 2027"><defs><pattern id="ch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="4" style="stroke:var(--ink)" stroke-width="1"/></pattern></defs>`;
+ for(let k=0;k<=3;k++){const v=50*k;s+=`<line class="gl" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${L-8}" y="${y(v)+4}" text-anchor="end">${v}</text><text class="ax" x="${W-R+8}" y="${ys(k*133.3)+4}">${Math.round(k*133.3)}</text>`}
+ CX.e.forEach((e,i)=>{const x=L+i*bw;s+=`<rect x="${x+bw*.16}" y="${y(Math.min(e,max))}" width="${bw*.32}" height="${y(0)-y(Math.min(e,max))}" style="fill:var(--ink)"/><rect x="${x+bw*.52}" y="${y(CX.s[i])}" width="${bw*.32}" height="${y(0)-y(CX.s[i])}" style="fill:url(#ch);stroke:var(--ink)" stroke-width=".8"/><text class="ax" x="${x+bw/2}" y="${H-8}" text-anchor="middle">${CX.m[i]}</text>`;if(e>max)s+=`<text class="ax" x="${x+bw*.32}" y="${T-4}" text-anchor="middle">${nf(e,1)}</text>`});
+ s+=`<polyline class="s2" points="${sl.map((v,i)=>`${(L+i*bw+bw/2).toFixed(1)},${ys(v).toFixed(1)}`).join(' ')}"/>`;
+ return s+'</svg>'}
+
+/* ============ LOGIN E ESTRUTURA ============ */
+const ICO={menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',theme:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>',bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>'};
+const can=v=>P[S.persona].nav.some(g=>g[1].includes(v));
+function login(){const k=S.pick,p=P[k],ks=Object.keys(P);
+ const btn=x=>`<button class="pp${x===k?' on':''}" data-k="${x}" onclick="pick('${x}')" aria-pressed="${x===k}"><b>${P[x].name}</b><span>${P[x].role}</span></button>`;
+ return `<div class="login"><section class="l-art">${logo('lg')}<div class="l-draw">${loginArt()}</div><p class="l-cap">Peninsula Aurora, Curitiba. Estrutura no 19º de 28 pavimentos.</p><h2 class="l-h">Do terreno às chaves, uma operação só.</h2><p class="l-s">Incorporação, projetos, obra, compras, financeiro, vendas e pós-obra no mesmo sistema, com uma visão para cada pessoa envolvida.</p></section>
+ <section class="l-form"><div class="l-in"><h1>Entrar</h1><p>Escolha um perfil para ver o sistema pelos olhos de quem usa no dia a dia.</p><h4>Equipe Peninsula</h4><div class="pg">${ks.filter(x=>!P[x].ext).map(btn).join('')}</div><h4>Clientes e fornecedores</h4><div class="pg">${ks.filter(x=>P[x].ext).map(btn).join('')}</div>
+ <div class="creds"><label class="fld">E-mail<input id="em" value="${p.email}" readonly></label><label class="fld">Senha<input type="password" value="peninsula2026" readonly></label></div>
+ <button class="btn btn-block" id="enter" onclick="enter()">Continuar</button><p class="fine">Ambiente de demonstração. Nomes, valores, empresas e documentos são fictícios.</p></div></section></div>`}
+function pick(k){S.pick=k;document.querySelectorAll('.pp').forEach(b=>{const on=b.dataset.k===k;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});$('#em').value=P[k].email}
+function enter(){const b=$('#enter');b.textContent='Entrando…';b.disabled=true;setTimeout(()=>{S.persona=S.pick;S.view=P[S.persona].nav[0][1][0];render();toast(`Você entrou como ${P[S.persona].name}.`)},600)}
+function logout(){S.pick=S.persona;S.persona=null;closeDrawer();render();window.scrollTo(0,0)}
+function shell(){const p=P[S.persona],cnt=S.ap.filter(a=>a.to.includes(S.persona)).length;
+ const nav=p.nav.map(([g,items])=>`<div class="nav-g"><h5>${g}</h5>${items.map(v=>`<button class="nl${S.view===v?' on':''}" onclick="go('${v}')"${S.view===v?' aria-current="page"':''}><span>${V[v][0]}</span>${v==='aprovacoes'&&cnt?`<span class="cnt">${cnt}</span>`:''}</button>`).join('')}</div>`).join('');
+ return `<div class="app"><aside class="side" id="side">${logo()}<div class="me">${av(p.name,p.ext,'')}<div><b>${p.name}</b><span>${p.role}</span></div></div><nav aria-label="Menu principal">${nav}</nav><div class="side-foot"><button onclick="logout()">Trocar de perfil</button><span>Peninsula Engenharia, ambiente de demonstração</span></div></aside><div class="scrim" id="sscrim" onclick="toggleSide(false)"></div>
+ <main class="main"><header class="top"><button class="ib menu" onclick="toggleSide(true)" aria-label="Abrir menu">${ICO.menu}</button><div class="crumb">${p.area} / <b>${V[S.view][0]}</b></div><div class="top-r"><input class="search" type="search" placeholder="Buscar pedido, unidade ou pessoa" aria-label="Buscar" onkeydown="if(event.key==='Enter')toast('A busca procura em todos os módulos que o seu perfil pode ver.')"><button class="ib" onclick="toggleTheme()" aria-label="Alternar tema claro e escuro">${ICO.theme}</button><button class="ib" onclick="notif()" aria-label="Avisos">${ICO.bell}<span class="dot"></span></button></div></header><div class="content">${V[S.view][1]()}</div></main></div>`}
+function render(){const m=$('.main'),t=m?m.scrollTop:0;$('#root').innerHTML=S.persona?shell():login();const m2=$('.main');if(m2)m2.scrollTop=t}
+function go(v){S.view=v;toggleSide(false);closeDrawer();render();const m=$('.main');if(m)m.scrollTop=0}
+function toggleSide(on){const s=$('#side'),c=$('#sscrim');if(!s)return;s.classList.toggle('on',on);c.classList.toggle('on',on)}
+function toggleTheme(){const r=document.documentElement,cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'),n=cur==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('pen-theme',n)}catch(e){}}
+try{const t=localStorage.getItem('pen-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+const NOTIF={
+ diretoria:[['Fechamento de outubro publicado','Margem consolidada de 33,1%, 0,4 ponto acima do orçamento.']],
+ admin:[['2 relógios de ponto offline no Maré','A integração tenta reconectar a cada 15 minutos.'],['11 usuários sem verificação em duas etapas','Lembrete enviado por e-mail hoje às 8h.']],
+ incorporacao:[['Prefeitura de Nova Lima pediu complemento','Projeto legal da Quinta da Serra, resposta até 24/11.']],
+ engenharia:[['Chuva prevista para as 15h','Proteger os serviços externos do 19º e do 20º.'],['FVS-116 reprovada','Reinspeção da elétrica do 9º marcada para 12/11.']],
+ campo:[['Concreto chega às 7h de amanhã','48 m³ para os pilares do 20º pavimento.'],['Chuva prevista para as 15h','Proteger a periferia da laje do 19º.']],
+ suprimentos:[['CND trabalhista da Hidráulica Fluxo vence em 6 dias','Pagamentos ficam retidos se o documento vencer.'],['Aço CA-50 com alta de 6,2% no mês','Sugestão: antecipar a compra do Maré.']],
+ financeiro:[['Repasse da Lumen 1501 liberado','R$ 2.890.000 creditados em 04/11.'],['Medição nº 23 do banco agendada','Vistoria do Banco Meridional na Aurora em 18/11.']],
+ comercial:[['Reserva da unidade 2401 expira em 30 horas','O desconto de 7% aguarda a diretoria.'],['14 novos contatos do Maré desde ontem','8 vieram do site, 6 de imobiliárias parceiras.']],
+ cliente:[['Novas fotos da sua obra','Concretagem da laje do 19º pavimento, 06/11.'],['Escolha de acabamentos aberta','Prazo até 15/12/2026.']],
+ fornecedor:[['Nova cotação aberta','COT-0931, concreto para o Maré. Responda até 14/11.'],['NF 22.918 aprovada','Pagamento programado para hoje.']]};
+function notif(){const mine=S.ap.filter(a=>a.to.includes(S.persona));const items=[...mine.slice(0,3).map(a=>[`${a.tipo}: ${a.desc}`,`Aguarda você, ${a.valor}`]),...(NOTIF[S.persona]||[])];
+ openDrawer(`<h2>Avisos</h2><p class="sub">O que mudou desde o seu último acesso.</p><div class="dsec"><div class="rows">${items.map(([t,s])=>`<div><div>${t}<small>${s}</small></div></div>`).join('')}</div></div>${mine.length&&can('aprovacoes')?`<div class="dsec"><button class="btn" onclick="go('aprovacoes')">Abrir aprovações</button></div>`:''}`)}
+
+/* ============ TELAS COMPARTILHADAS ============ */
+const vgvF=v=>v>=1000?'R$ '+nf(v/1000,2)+' bi':mi(v);
+function vExec(){const pend=S.ap.filter(a=>a.to.includes('diretoria'));
+ const port=table(['Empreendimento','Fase','Avanço físico','Vendido','>VGV','Situação'],EMP.map(e=>`<tr class="click" onclick="empDrawer('${e.id}')"><td><span class="w5">${e.n}</span><small>${e.loc}</small></td><td>${e.fase}</td><td>${e.fis||e.plan?pbar(e.fis,e.plan):'<span class="muted sm">Não iniciada</span>'}</td><td>${e.vend}%</td><td class="r">${vgvF(e.vgv)}</td><td>${st(e.st)}</td></tr>`));
+ const ap=pend.length?`<div class="rows">${pend.slice(0,4).map(a=>`<div><div><span class="w5">${a.desc}</span><small>${a.tipo}, ${a.obra}, ${a.valor}</small></div><button class="btn btn-sm" onclick="decide('${a.id}',1)">Aprovar</button></div>`).join('')}</div>`:empty('Tudo em dia','Nada aguarda a diretoria agora.');
+ const curve=lineChart({n:42,max:100,labels:MLAB.map((l,i)=>i%6===0||i===41?l:''),series:[{c:'s2',d:PLAN},{c:'s1',d:REAL}],today:22,yf:v=>v+'%',aria:'Curva S do Peninsula Aurora: previsto 65% e realizado 62% em novembro de 2026'});
+ const alerts=`<div class="rows">${[['Aço CA-50 subiu 6,2% no mês','Impacto estimado de R$ 1,1 mi no Maré. Suprimentos está antecipando 120 t.','Atenção'],['Aurora 3 pontos abaixo do previsto','As chuvas de outubro atrasaram duas lajes. Segundo turno até dezembro para recuperar.','Atenção'],['Vértice com habite-se previsto para fev/2027','Vistoria dos bombeiros agendada para 15/01. Repasse de R$ 142 mi em abril.','No prazo'],['Lumen com 4 chamados fora do prazo','Três de hidráulica e um de esquadria. Equipe reforçada esta semana.','Atenção']].map(([t,d,s])=>`<div><div><span class="w5">${t}</span><small>${d}</small></div>${st(s)}</div>`).join('')}</div>`;
+ return head('Bom dia, Ricardo','Terça-feira, 10 de novembro de 2026. Cinco empreendimentos, três canteiros ativos e 612 pessoas em campo hoje.',`<button class="btn btn-ghost btn-sm" onclick="go('jornada')">Ver a jornada completa</button>`)
+ +kpis([['VGV em carteira','R$ 2,77 bi','5 empreendimentos'],['Vendas em 2026','R$ 388,0 mi','142 unidades'],['Caixa consolidado','R$ 184,3 mi','em 5 patrimônios de afetação'],['Margem bruta média','33,1%','meta do comitê: 28%'],['Pessoas em campo','612','248 próprios, 364 terceiros']])
+ +`<div class="g">${panel('Carteira de empreendimentos',port,'',true)}</div>`
+ +`<div class="g g-21">${panel('Curva S do Peninsula Aurora',curve+`<div class="mt">${lineLegend([[0,'Realizado: 62%'],[1,'Previsto: 65%']])}</div>`)}${panel('Aguardando sua aprovação',ap,`<button class="lnk" onclick="go('aprovacoes')">Ver todas (${pend.length})</button>`)}</div>`
+ +panel('Pontos de atenção',alerts)}
+function jrow(id){const c=JM[id]||'fffffffff';return `<div class="jr">${c.split('').map((x,i)=>`<i class="${x}" title="${J[i].n}"></i>`).join('')}</div><div class="mt sm muted">Fase principal agora: ${J[JMAIN[id]??0].n}</div>`}
+function empDrawer(id){const e=EMP.find(x=>x.id===id);const btn=[];
+ if(id==='aurora'&&can('obra'))btn.push(`<button class="btn" onclick="go('obra')">Abrir painel da obra</button>`);
+ if(['aurora','mare','vertice'].includes(id)&&can('espelho'))btn.push(`<button class="btn" onclick="S.esp='${id}';go('espelho')">Abrir espelho de vendas</button>`);
+ if(id==='quinta'&&can('projetos'))btn.push(`<button class="btn" onclick="go('projetos')">Abrir legalização</button>`);
+ if(id==='lumen'&&can('assist'))btn.push(`<button class="btn" onclick="go('assist')">Abrir chamados</button>`);
+ openDrawer(`<h2>${e.n}</h2><p class="sub">${e.tipo}, ${e.loc}</p><div class="dsec" style="display:grid;grid-template-columns:100px 1fr;gap:22px;align-items:end"><div>${e.houses?houses():tower({...e.tw,id:'d'+id,w:100,h:200,bg:'var(--surface)'})}</div><dl class="dl"><dt>Fase</dt><dd>${e.fase}</dd><dt>Avanço físico</dt><dd>${e.fis}% (previsto ${e.plan}%)</dd><dt>Vendido</dt><dd>${e.vend}% de ${e.un} unidades</dd><dt>VGV</dt><dd>${vgvF(e.vgv)}</dd><dt>Margem projetada</dt><dd>${nf(e.mg,1)}%</dd><dt>Entrega</dt><dd>${e.ent}</dd></dl></div><div class="dsec"><h4>Responsáveis</h4><div class="ppl">${person(e.ger,'Responsável geral')}${person(e.eng,'Engenharia residente')}</div></div><div class="dsec"><h4>Posição na jornada</h4>${jrow(id)}</div>${btn.length?`<div class="dsec"><div class="btns" style="flex-wrap:wrap">${btn.join('')}</div></div>`:''}`)}
+function vEmp(){return head('Empreendimentos','Carteira completa, do terreno em aprovação ao prédio já entregue. Escolha um empreendimento para ver o detalhe.')+`<div class="ecards">${EMP.map(e=>`<div class="ec" role="button" tabindex="0" onclick="empDrawer('${e.id}')" onkeydown="if(event.key==='Enter')empDrawer('${e.id}')"><div class="art">${e.houses?houses():tower({...e.tw,id:'c'+e.id,w:96,h:196})}</div><div class="txt"><span class="muted sm">${e.tipo}</span><h3>${e.n.replace('Peninsula ','')}</h3><span class="sm">${e.loc}</span><dl class="dl"><dt>Fase</dt><dd>${e.fase}</dd><dt>Físico</dt><dd>${e.fis}%</dd><dt>Vendido</dt><dd>${e.vend}%</dd><dt>Entrega</dt><dd>${e.ent}</dd></dl></div></div>`).join('')}</div><div class="mt2">${legend([['solid','Pavimento concluído'],['hatch','Em execução'],['out','A executar']])}</div>`}
+function vJornada(){const k=S.phase,ph=J[k];
+ const rows=[['Peninsula Aurora','aurora'],['Peninsula Maré','mare'],['Peninsula Vértice','vertice'],['Quinta da Serra','quinta'],['Peninsula Lumen','lumen'],['Terreno Ecoville','ecoville']];
+ const mat=`<div class="tw"><table class="jm"><thead><tr><th class="l"></th>${J.map((j,i)=>`<th class="${i===k?'sel':''}">${String(i+1).padStart(2,'0')}<br>${j.n}</th>`).join('')}</tr></thead><tbody>${rows.map(([n,id])=>`<tr><td class="l">${n}</td>${JM[id].split('').map((c,i)=>`<td class="c ${c}" title="${J[i].n}: ${c==='d'?'concluída':c==='p'?'em curso':'próxima'}"></td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="mt">${legend([['solid','Concluída'],['hatch','Em curso'],['out','Próxima']])}</div><p class="note mt">Vendas, suprimentos e financeiro correm em paralelo com a obra. Por isso um empreendimento pode estar em mais de uma fase ao mesmo tempo.</p>`;
+ const steps=`<div class="steps" role="tablist" aria-label="Fases da jornada">${J.map((j,i)=>`<button class="step${i===k?' on':''}" role="tab" aria-selected="${i===k}" onclick="S.phase=${i};render()"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="t">${j.n}</span></button>`).join('')}</div>`;
+ const det=`<div class="g g-3">${panel('Processos, em ordem',`<p class="muted sm" style="margin-bottom:10px">${ph.resumo}</p><ol class="ol">${ph.proc.map(x=>`<li>${x}</li>`).join('')}</ol>`)}${panel('Pessoas e parceiros',`<div class="ppl">${ph.pes.map(([n,r])=>person(n,r)).join('')}</div><div class="dsec"><h4>Parceiros externos</h4><div class="chips">${ph.ext.map(x=>`<span class="chip">${x}</span>`).join('')}</div></div>`)}${panel('No sistema',`<dl class="dl"><dt>Área responsável</dt><dd>${ph.area}</dd><dt>Duração típica</dt><dd>${ph.sla}</dd></dl><div class="dsec"><h4>Telas usadas</h4><div class="chips">${ph.mod.map(x=>`<span class="chip">${x}</span>`).join('')}</div></div><div class="dsec"><h4>O que sai desta fase</h4><div class="chips">${ph.ent.map(x=>`<span class="chip">${x}</span>`).join('')}</div></div>`)}</div>`;
+ const aj=panel('O que o seu time pode ajustar nesta fase',`<div class="rows">${ph.aj.map(x=>`<div><span>${x}</span><span class="muted sm">Configurável pelo administrador</span></div>`).join('')}</div>${can('fluxos')?`<div class="mt"><button class="btn btn-sm" onclick="go('fluxos')">Abrir fluxos de aprovação</button></div>`:''}`);
+ return head('Jornada e processos','Nove fases, do terreno ao pós-obra. Cada fase tem área responsável, processos, pessoas, parceiros e telas próprias no sistema.')+panel('Onde cada empreendimento está',mat)+`<div style="height:28px"></div><h2 style="font-family:var(--serif);font-weight:500;font-size:28px;margin-bottom:10px">Detalhe de cada fase</h2>`+steps+det+aj}
+function vAprov(){const mine=S.ap.filter(a=>a.to.includes(S.persona));
+ const body=mine.length?table(['Solicitação','Empreendimento','Solicitante','Etapa','>Valor',''],mine.map(a=>`<tr><td><span class="w5">${a.desc}</span><small>${a.id}, ${a.tipo.toLowerCase()}</small></td><td>${a.obra}</td><td>${a.sol}</td><td>${a.etapa}</td><td class="r">${a.valor}</td><td class="r"><div class="btns"><button class="btn btn-sm btn-ghost" onclick="decide('${a.id}',0)">Recusar</button><button class="btn btn-sm" onclick="decide('${a.id}',1)">Aprovar</button></div></td></tr>`)):empty('Nenhuma aprovação pendente','Quando alguém enviar algo que dependa de você, aparece aqui com valor, etapa e prazo.');
+ return head('Aprovações',`${mine.length} ${mine.length===1?'item aguarda':'itens aguardam'} a sua decisão. Cada solicitação segue a alçada definida em fluxos de aprovação.`)+panel('Aguardando você',body,'',!!mine.length)}
+function decide(id,ok){const a=S.ap.find(x=>x.id===id);if(!a)return;S.ap=S.ap.filter(x=>x.id!==id);render();toast(ok?`${a.id} aprovado. ${a.sol} recebeu a confirmação.`:`${a.id} recusado e devolvido para ${a.sol}.`)}
+function vPessoas(){
+ return head('Pessoas e parceiros','Quem faz parte da operação da Peninsula, dentro e fora da empresa. Cada pessoa vê no sistema só o que precisa para o seu trabalho.')
+ +kpis([['Equipe própria','323','75 no escritório, 248 em campo'],['Terceiros em campo','364','de 23 empreiteiros'],['Fornecedores homologados','86','12 em reavaliação ou homologação'],['Clientes com acesso','412','ao portal do cliente']])
+ +`<div class="top-org"><div class="org-c"><h4>Diretoria <span>2 pessoas</span></h4><div class="ppl">${person('Ricardo Albuquerque')}${person('Helena Vasconcelos')}</div></div></div><div class="org">${ORG.map(([a,n,ps])=>`<div class="org-c"><h4>${a} <span>${n} ${n===1?'pessoa':'pessoas'}</span></h4><div class="ppl">${ps.map(([x,r])=>person(x,r)).join('')}</div></div>`).join('')}</div><div style="height:24px"></div>`
+ +panel('Parceiros externos',table(['Grupo','>Quantidade','Exemplos'],PARC.map(([g,q,e])=>`<tr><td class="w5">${g}</td><td class="r">${q}</td><td class="muted">${e}</td></tr>`)),'',true)}
+
+/* ============ ENGENHARIA E CAMPO ============ */
+function lob(){let h=`<div class="tw"><table class="lob"><thead><tr><th></th>${SERV.map(s=>`<th>${s[0]}</th>`).join('')}</tr></thead><tbody>`;
+ for(let f=28;f>=1;f--)h+=`<tr><td class="f">${f}º</td>${SERV.map(([n,d,p])=>`<td class="${f<=d?'d':f===p?'p':''}" title="${n}, ${f}º pavimento: ${f<=d?'concluído':f===p?'em execução':'não iniciado'}"></td>`).join('')}</tr>`;
+ return h+`</tbody></table></div><div class="mt">${legend([['solid','Concluído'],['hatch','Em execução'],['out','Não iniciado']])}</div>`}
+function budBars(){const mx=60;return `<div class="bars">${BUD.map(([n,o,r])=>`<div><span>${n}</span><div class="trk" style="width:${o/mx*100}%"><i style="width:${Math.min(r/o,1)*100}%"></i></div><span class="v">${nf(r,1)} de ${nf(o,1)}${r>o?` <b class="w5" style="color:var(--ink)">+${nf((r/o-1)*100,0)}%</b>`:''}</span></div>`).join('')}</div><div class="mt">${legend([['solid','Realizado'],['out','Orçado, em R$ mi']])}</div>`}
+function vObra(){
+ const ms=`<div class="rows">${[['Vistoria do banco para a medição nº 23','18/11/2026','Agendado'],['Início da fachada em pele de vidro','dez/2026','No prazo'],['Concretagem da última laje (28º)','mar/2027','Atenção: 15 dias de atraso'],['Elevadores definitivos em operação','set/2027','No prazo'],['Habite-se','abr/2028','No prazo']].map(([t,d,s])=>`<div><div>${t}<small>${d}</small></div>${st(s)}</div>`).join('')}</div>`;
+ const team=`<div class="ppl">${person('Marcos Teixeira','Gerente de obras')}${person('Juliana Prado','Engenheira residente')}${person('Bruno Kato','Planejamento e orçamento')}${person('Sebastião Moura','Mestre de obras')}${person('Patrícia Gomes','Técnica de segurança')}${person('Renan Torres','Almoxarife')}</div><p class="muted sm mt">Mais 11 empreiteiros ativos, com 128 pessoas em campo hoje.</p>`;
+ return head('Peninsula Aurora','Batel, Curitiba/PR. 28 pavimentos e 112 unidades, com entrega prevista para junho de 2028.',`<button class="btn btn-ghost btn-sm" onclick="go('crono')">Cronograma</button><button class="btn btn-sm" onclick="go('diario')">Diário de hoje</button>`)
+ +kpis([['Avanço físico','62%','previsto para hoje: 65%'],['Custo realizado','R$ 121,8 mi','de R$ 248,0 mi orçados'],['Índice de prazo','0,95','abaixo de 1 indica atraso'],['Índice de custo','1,02','acima de 1 indica economia'],['Efetivo hoje','214','86 próprios, 128 terceiros'],['Dias sem acidente','187','com afastamento']])
+ +`<div class="g g-2">${panel('Avanço por pavimento',lob())}${panel('Orçamento por etapa',budBars())}</div><div class="g g-2">${panel('Próximos marcos',ms)}${panel('Equipe da obra',team)}</div>`}
+function vCrono(){const N=42,today=22.33,pos=v=>v/N*100;
+ const hd=`<div class="gt-row gt-head"><div class="gt-l muted sm">Etapa e responsável</div><div class="gt-t">${[0,6,12,18,24,30,36].map(m=>`<span style="left:${pos(m)}%">${MLAB[m]}</span>`).join('')}</div></div>`;
+ const rows=TASKS.map(([n,r,a,b,p])=>{const exp=Math.max(0,Math.min(100,(today-a)/(b-a)*100)),late=p<exp-5;return `<div class="gt-row"><div class="gt-l">${n}<small>${r}</small></div><div class="gt-t"><div class="gt-bar${late?' late':''}" style="left:${pos(a)}%;width:${pos(b-a)}%" title="${n}: ${p}% executado, previsto ${Math.round(exp)}%"><i style="width:${p}%"></i></div></div></div>`}).join('');
+ return head('Cronograma físico','Peninsula Aurora. Linha de base aprovada em dez/2024, atualizada toda sexta-feira pelo planejamento.',`<button class="btn btn-ghost btn-sm" onclick="toast('Reprogramação enviada para Bruno Kato revisar.')">Propor reprogramação</button>`)
+ +kpis([['Etapas atrasadas','3','estrutura, alvenaria e instalações'],['Desvio do físico','3 pontos','62% realizado, 65% previsto'],['Folga do caminho crítico','18 dias','estrutura, fachada e acabamentos'],['Entrega contratual','jun/2028','tolerância de 180 dias']])
+ +panel('Etapas da obra',`<div class="tw"><div class="gt">${hd}${rows}<div class="gt-today" style="left:calc(240px + (100% - 240px) * ${(today/N).toFixed(4)})"><span>Hoje, 10/11</span></div></div></div><div class="pbody">${legend([['solid','Executado'],['out','Previsto'],['hatch','Etapa atrasada']])}</div>`,'',true)
+ +`<div class="g g-2" style="margin-top:24px">${panel('Plano de recuperação',`<div class="rows"><div><div>Segundo turno na estrutura até 18/12<small>Forma Certa e Armação Forte, 22 pessoas a mais</small></div>${st('Em execução')}</div><div><div>Antecipar alvenaria do 14º com segunda equipe<small>Massa Fina, a partir de 23/11</small></div>${st('Aguardando aprovação')}</div><div><div>Kit de instalações pré-montado no canteiro<small>Instaladora Voltare, ganho estimado de 9 dias</small></div>${st('Em análise')}</div></div>`)}${panel('Curva S',lineChart({n:42,max:100,h:200,labels:MLAB.map((l,i)=>i%12===0?l:''),series:[{c:'s2',d:PLAN},{c:'s1',d:REAL}],today:22,yf:v=>v+'%',aria:'Curva S: previsto 65%, realizado 62%'})+`<div class="mt">${lineLegend([[0,'Realizado'],[1,'Previsto']])}</div>`)}</div>`}
+function vDiario(){const tot=Object.values(S.ef).reduce((a,b)=>a+b,0),sign=['engenharia','campo'].includes(S.persona);
+ const serv=[['Concretagem da laje','19º pavimento','Equipe própria e Concreteira Atlântica','Concluído'],['Fôrmas dos pilares','20º pavimento','Forma Certa Carpintaria','Em execução'],['Armação dos pilares','20º pavimento','Armação Forte','Em execução'],['Alvenaria de vedação','13º pavimento','Massa Fina Alvenaria','Em execução'],['Eletrodutos e caixas','10º pavimento','Instaladora Voltare','Em execução'],['Impermeabilização dos banheiros','9º pavimento','Selare','Paralisado pela chuva']];
+ const hist=[['481','Segunda, 09/11',208,'Sol'],['480','Sábado, 07/11',96,'Nublado'],['479','Sexta, 06/11',221,'Sol'],['478','Quinta, 05/11',219,'Chuva à tarde'],['477','Quarta, 04/11',212,'Sol']];
+ return head('Diário de obra','Registro oficial do dia, com efetivo, clima, serviços, ocorrências e fotos. Assinado pela engenharia e pelo mestre de obras e enviado ao banco financiador.',sign?`<button class="btn btn-sm" onclick="toast('Diário nº 482 assinado. Cópia enviada ao banco financiador.')">Assinar diário</button>`:'')
+ +`<div class="g g-21"><div class="doc"><div class="doc-h"><div><small>Obra</small>Peninsula Aurora</div><div><small>Diário</small>Nº 482</div><div><small>Data</small>10/11/2026</div><div><small>Clima</small>Sol pela manhã, chuva à tarde</div><div><small>Situação</small>${st('Em preenchimento')}</div></div>
+ <div class="doc-s"><h4>Efetivo presente: ${tot} pessoas</h4><div class="efg">${Object.entries(S.ef).map(([k,v])=>`<div><b>${v}</b>${k}</div>`).join('')}</div></div>
+ <div class="doc-s" style="padding:0"><h4 style="padding:18px 20px 0">Serviços do dia</h4>${table(['Serviço','Local','Equipe','Situação'],serv.map(r=>`<tr><td class="w5">${r[0]}</td><td>${r[1]}</td><td class="muted">${r[2]}</td><td>${st(r[3])}</td></tr>`))}</div>
+ <div class="doc-s"><h4>Equipamentos</h4><div class="chips"><span class="chip">Grua de 50 m, operando</span><span class="chip">2 elevadores de obra, operando</span><span class="chip">Bomba lança, liberada às 11h</span><span class="chip">2 betoneiras de 400 L</span></div></div>
+ <div class="doc-s"><h4>Ocorrências</h4><div class="rows">${S.oc.map(([h,t])=>`<div><div>${esc(t)}<small>${h}</small></div></div>`).join('')}</div><div class="ocf mt"><input class="inp" id="ocIn" placeholder="Descreva o que aconteceu" aria-label="Nova ocorrência" onkeydown="if(event.key==='Enter')addOc()"><button class="btn btn-sm" onclick="addOc()">Registrar</button></div></div>
+ <div class="doc-s"><h4>Fotos do dia</h4><div class="photos">${['Concretagem da laje do 19º','Armação dos pilares do 20º','Alvenaria no 13º','Proteção da periferia'].map((c,i)=>`<figure class="photo" style="margin:0">${crane(i+3)}<p>${c}</p></figure>`).join('')}</div></div>
+ <div class="doc-s"><h4>Assinaturas</h4><div class="rows"><div><div>Sebastião Moura<small>Mestre de obras</small></div>${st('Aguardando fim do expediente')}</div><div><div>Juliana Prado<small>Engenheira residente</small></div>${st('Aguardando')}</div></div></div></div>
+ ${panel('Diários anteriores',`<div class="rows">${hist.map(([n,d,e,c])=>`<div><div>Nº ${n}, ${d}<small>${e} pessoas, ${c.toLowerCase()}</small></div>${st('Assinado')}</div>`).join('')}</div>`)}</div>`}
+function addOc(){const i=$('#ocIn'),v=i.value.trim();if(!v){toast('Escreva a ocorrência antes de registrar.');i.focus();return}const d=new Date();S.oc.push([`${d.getHours()}h${String(d.getMinutes()).padStart(2,'0')}`,v]);render();toast('Ocorrência registrada no diário nº 482.')}
+function vQual(){
+ const fvs=[['FVS-118','Concretagem da laje','19º pavimento','Juliana Prado','Aprovada'],['FVS-117','Alvenaria de vedação','12º pavimento','Juliana Prado','Aprovada com ressalva'],['FVS-116','Instalação elétrica','9º pavimento','Juliana Prado','Reprovada, reinspeção em 12/11'],['FVS-115','Impermeabilização de banheiros','8º pavimento','Patrícia Gomes','Aprovada'],['FVS-114','Prumo e nível dos pilares','18º pavimento','Juliana Prado','Aprovada'],['FVS-113','Contrapiso','6º pavimento','Juliana Prado','Aprovada']];
+ const nc=[['NC-042','Vidros com riscos no lote 3','Vértice','Cristal Prime Vidros','20/11','Aberta'],['NC-041','Desvio de prumo de 7 mm no pilar P14','Aurora, 18º','Forma Certa Carpintaria','08/11','Tratada'],['NC-040','Eletroduto amassado antes da concretagem','Aurora, 9º','Instaladora Voltare','12/11','Em tratamento']];
+ return head('Qualidade','Fichas de verificação de cada serviço e tratamento das não conformidades, com responsável e prazo.',['engenharia','campo'].includes(S.persona)?`<button class="btn btn-sm" onclick="toast('Nova ficha de verificação aberta para o 20º pavimento.')">Nova ficha de verificação</button>`:'')
+ +kpis([['Aprovadas na 1ª inspeção','91%','meta: 90%'],['Fichas no mês','118','em 3 obras'],['Não conformidades abertas','2','1 tratada esta semana'],['Tempo médio de tratamento','5,4 dias','meta: 7 dias']])
+ +`<div class="g g-21">${panel('Fichas de verificação recentes',table(['Ficha','Serviço','Local','Inspetor','Resultado'],fvs.map(r=>`<tr><td>${r[0]}</td><td class="w5">${r[1]}</td><td>${r[2]}</td><td class="muted">${r[3]}</td><td>${st(r[4])}</td></tr>`)),'',true)}${panel('Não conformidades',`<div class="rows">${nc.map(r=>`<div><div><span class="w5">${r[1]}</span><small>${r[0]}, ${r[2]}, ${r[3]}, prazo ${r[4]}</small></div>${st(r[5])}</div>`).join('')}</div>`)}</div>`}
+function vSeg(){
+ const insp=[['Bandejas de proteção do 19º','Conforme'],['Guarda-corpo da periferia do 19º','Pendência: 3 trechos sem rodapé'],['Elevador de obra, laudo de manutenção','Válido até mar/2027'],['Grua, inspeção mensal','Conforme, feita em 04/11'],['Linha de vida da laje','Em montagem']];
+ const tr=[['Adriano Melo','Armador, Armação Forte','NR-35 trabalho em altura','16/11'],['Cícero Batista','Carpinteiro, Forma Certa','NR-35 trabalho em altura','19/11'],['Wellington Rocha','Eletricista, Voltare','NR-10 eletricidade','22/11'],['Josué Lima','Servente, próprio','NR-18 construção','28/11'],['Edson Prado','Operador de grua, Gruas Sul','NR-11 movimentação','03/12']];
+ return head('Segurança do trabalho','Inspeções, treinamentos obrigatórios, entrega de equipamentos de proteção e diálogo diário de segurança.')
+ +kpis([['Dias sem acidente','187','com afastamento'],['Diálogo de hoje','214 presentes','trabalho em altura na periferia da laje'],['Treinamentos a vencer','14','nos próximos 30 dias'],['EPIs entregues','86','nesta semana']])
+ +`<div class="g g-2">${panel('Inspeções de hoje',`<div class="rows">${insp.map(([t,s])=>`<div><span>${t}</span>${st(s.replace('Conforme','Concluído, conforme'))}</div>`).join('')}</div>`)}${panel('Treinamentos a vencer',table(['Pessoa','Treinamento','>Vence em'],tr.map(r=>`<tr><td><span class="w5">${r[0]}</span><small>${r[1]}</small></td><td>${r[2]}</td><td class="r">${r[3]}</td></tr>`)),`<button class="lnk" onclick="toast('Turma de NR-35 agendada para 14/11 às 7h.')">Agendar turma</button>`,true)}</div>`}
+let MEDS=MED.map(m=>[...m]);
+function vMed(){const eng=S.persona==='engenharia',fin=S.persona==='financeiro';
+ return head('Medições de empreiteiros','O empreiteiro mede o que executou, a engenharia confere em campo e o financeiro programa o pagamento com retenção de 5%.')
+ +kpis([['A conferir pela engenharia',brl(MEDS.filter(m=>m[6]==='Aguardando engenharia').reduce((a,m)=>a+m[3],0)),'2 medições'],['Aprovadas este mês','R$ 2,94 mi','17 medições'],['Retenção acumulada','R$ 1,18 mi','garantia contratual de 5%'],['Contratos ativos','23','R$ 61,4 mi contratados']])
+ +panel('Medições do período',table(['Empreiteiro','Serviço','Medição','Contrato executado','>Valor','Situação',''],MEDS.map((m,i)=>`<tr><td class="w5">${m[0]}</td><td>${m[1]}</td><td>${m[2]}</td><td>${pbar(m[5])}</td><td class="r">${brl(m[3])}</td><td>${st(m[6])}</td><td class="r">${eng&&m[6]==='Aguardando engenharia'?`<button class="btn btn-sm" onclick="medOk(${i})">Aprovar</button>`:fin&&m[6]==='Aprovada pela engenharia'?`<button class="btn btn-sm" onclick="medPay(${i})">Programar</button>`:''}</td></tr>`)),'',true)}
+function medOk(i){MEDS[i][6]='Aprovada pela engenharia';render();toast(`Medição de ${MEDS[i][0]} aprovada e enviada ao financeiro.`)}
+function medPay(i){MEDS[i][6]='Programada para 17/11';render();toast(`Pagamento de ${MEDS[i][0]} programado para 17/11, com retenção de 5%.`)}
+function vAssist(){
+ const ch=[['AT-0231','Apto 704','Infiltração no box do banheiro','Impermeabilização, 5 anos','03/11','Visita agendada para 11/11'],['AT-0229','Apto 1203','Porta de correr com folga','Esquadrias, 1 ano','01/11','Em execução'],['AT-0228','Área comum','Ruído na bomba de recalque','Hidráulica, 1 ano','28/10','Fora do SLA'],['AT-0226','Apto 1802','Pressão baixa no chuveiro da suíte','Hidráulica, 1 ano','27/10','Fora do SLA'],['AT-0225','Apto 2101','Fissura em parede da sala','Revestimento, 1 ano','25/10','Em análise'],['AT-0221','Apto 902','Tomada sem energia','Elétrica, 3 anos','20/10','Concluído, nota 5']];
+ return head('Assistência técnica','Peninsula Lumen, entregue em agosto de 2026. Chamados de garantia abertos pelos proprietários no portal do cliente.')
+ +kpis([['Chamados abertos','23','de 96 unidades'],['Fora do prazo','4','primeiro atendimento em 72 horas'],['Tempo médio de solução','3,8 dias','meta: 5 dias'],['Satisfação','4,6 de 5','após o encerramento']])
+ +`<div class="g g-21">${panel('Chamados',table(['Chamado','Problema','Garantia','Aberto em','Situação'],ch.map(r=>`<tr><td><span class="w5">${r[0]}</span><small>${r[1]}</small></td><td>${r[2]}</td><td class="muted">${r[3]}</td><td>${r[4]}</td><td>${st(r[5])}</td></tr>`)),'',true)}${panel('Recorrência por sistema',`<div class="bars">${[['Hidráulica',9],['Esquadrias',6],['Revestimentos',4],['Elétrica',3],['Impermeabilização',1]].map(([n,v])=>`<div style="grid-template-columns:120px 1fr 30px"><span>${n}</span><div class="trk" style="width:100%"><i style="width:${v/9*100}%"></i></div><span class="v">${v}</span></div>`).join('')}</div><p class="note mt">Hidráulica concentra 39% dos chamados. A lição já foi registrada para o projeto do Maré: registros de pressão em todas as prumadas.</p>`)}</div>`}
+function vMeuDia(){const tot=Object.values(S.ef).reduce((a,b)=>a+b,0);
+ const phone=`<div class="phone"><div class="screen"><div class="scr-top"><small>Peninsula Aurora</small><h3>Bom dia, Sebastião</h3><small style="margin-top:6px">Terça, 10 de novembro. Sol pela manhã, chuva prevista às 15h.</small></div>
+ <div class="scr-sec"><h4>Efetivo presente: ${tot}</h4>${Object.entries(S.ef).map(([k,v])=>`<div class="cnt-r"><span>${k}</span><span class="stp"><button onclick="efx('${k}',-1)" aria-label="Diminuir ${k}">−</button><span>${v}</span><button onclick="efx('${k}',1)" aria-label="Aumentar ${k}">+</button></span></div>`).join('')}</div>
+ <div class="scr-sec"><h4>Tarefas do dia</h4>${S.tk.map(([t,d],i)=>`<label class="chk${d?' done':''}"><input type="checkbox" ${d?'checked':''} onchange="S.tk[${i}][1]=this.checked?1:0;render()"><span>${t}</span></label>`).join('')}</div>
+ <div class="scr-sec"><h4>Pedir material</h4><select class="inp" id="rqM" aria-label="Material">${ALMOX.map(a=>`<option>${a[0]}</option>`).join('')}</select><div style="display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px"><input class="inp" id="rqQ" type="number" min="1" placeholder="Quantidade" aria-label="Quantidade"><button class="btn btn-sm" onclick="reqMat()">Enviar</button></div></div>
+ <div class="scr-sec" style="border:0;display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn btn-ghost btn-sm" onclick="toast('Câmera aberta. A foto entra no diário com data e local.')">Tirar foto</button><button class="btn btn-ghost btn-sm" onclick="go('diario')">Abrir diário</button></div></div></div>`;
+ const flow=`<div class="rows">${[['Efetivo','Entra no diário de obra e no controle de mão de obra de cada empreiteiro.'],['Pedido de material','Vira requisição para Juliana Prado aprovar e aparece para Suprimentos cotar.'],['Fotos','Vão para o diário e, depois de revisadas, para o portal do cliente.'],['Tarefa concluída','Atualiza o avanço do pavimento no painel da obra e na curva S.']].map(([t,d])=>`<div><div><span class="w5">${t}</span><small>${d}</small></div></div>`).join('')}</div><p class="note mt">O aplicativo de campo funciona sem internet no canteiro e sincroniza quando o sinal volta.</p>`;
+ return head('Meu dia','Versão de celular para quem está no canteiro: botões grandes, poucas telas e tudo registrado na hora.')+`<div class="phone-wrap">${phone}<div>${panel('O que acontece com o que você registra',flow)}<div style="height:24px"></div>${panel('Próximas entregas na obra',`<div class="rows"><div><div>Concreto fck 40, 48 m³<small>Amanhã às 7h, Concreteira Atlântica</small></div>${st('Confirmado')}</div><div><div>Tubos e conexões<small>14/11, Hidráulica Fluxo</small></div>${st('Agendado')}</div><div><div>Cimento CP-II, 600 sacos<small>16/11, Aço Forte Distribuidora</small></div>${st('Aguardando pedido')}</div></div>`)}</div></div>`}
+function efx(k,d){S.ef[k]=Math.max(0,S.ef[k]+d);render()}
+function reqMat(){const m=$('#rqM').value,q=$('#rqQ').value;if(!q||q<=0){toast('Informe a quantidade antes de enviar.');$('#rqQ').focus();return}const u=ALMOX.find(a=>a[0]===m)[1];toast(`Pedido RC-2331 enviado: ${q} ${u} de ${m}. Juliana Prado vai aprovar.`);$('#rqQ').value=''}
+
+/* ============ SUPRIMENTOS ============ */
+function vCompras(){
+ return head('Compras','Da requisição da obra à entrega conferida. Cada cartão mostra em que ponto está e quem precisa agir.',S.persona==='suprimentos'?`<button class="btn btn-sm" onclick="go('cotacao')">Abrir mapa de cotação</button>`:'')
+ +kpis([['Economia em 2026','R$ 3,4 mi','6,8% abaixo do orçamento'],['Lead time médio','9,2 dias','da requisição à entrega'],['Pedidos no mês','87','em 3 obras'],['Entregas atrasadas','3','de 41 programadas']])
+ +`<div class="kb">${KB.map(([c,cards])=>`<div class="kcol"><h4>${c} <span>${cards.length}</span></h4>${cards.map(([id,t,o,m])=>`<div class="kc"${id==='RC-2321'&&can('cotacao')?` role="button" tabindex="0" style="cursor:pointer;border-color:var(--ink)" onclick="go('cotacao')" onkeydown="if(event.key==='Enter')go('cotacao')"`:''}><b>${t}</b><div class="meta"><span>${id}, ${o}</span><span>${m}</span></div></div>`).join('')}</div>`).join('')}</div>`}
+function vCotacao(){const C=COT,tot=f=>f.pu*C.qtd+f.frete,orc=C.orc*C.qtd,sel=S.cotSel??0,best=Math.min(...C.f.map(tot));
+ const rows=C.f.map((f,i)=>`<tr class="click" onclick="S.cotSel=${i};render()"><td><label style="display:flex;gap:10px;align-items:center;cursor:pointer"><input type="radio" name="cs" ${i===sel?'checked':''} style="accent-color:var(--ink)"><span><span class="w5">${f.n}</span><small>Nota ${nf(f.nota,1)} de 5</small></span></label></td><td class="r">${brl(f.pu,2)}</td><td class="r">${f.frete?brl(f.frete):'Incluso'}</td><td class="r w5">${brl(tot(f))}${tot(f)===best?'<small>menor preço</small>':''}</td><td class="r">${f.prazo} dias</td><td>${f.pg}</td><td class="muted">${f.obs}</td></tr>`);
+ const f=C.f[sel],t=tot(f),eco=orc-t;
+ return head('Mapa de cotação',`${C.id}: ${C.item}, ${nf(C.qtd)} m² para o Peninsula Aurora. Material necessário na obra ${C.need}.`)
+ +panel('Propostas recebidas',table(['Fornecedor','>Preço por m²','>Frete','>Total','>Prazo','Pagamento','Observação'],rows),'',true)
+ +`<div class="g g-2" style="margin-top:24px">${panel('Escolha de Suprimentos',`<dl class="dl"><dt>Fornecedor</dt><dd class="w5">${f.n}</dd><dt>Total da compra</dt><dd>${brl(t)}</dd><dt>Orçado para o item</dt><dd>${brl(orc)}</dd><dt>Economia sobre o orçado</dt><dd>${eco>=0?brl(eco)+' ('+nf(eco/orc*100,1)+'%)':'Acima em '+brl(-eco)}</dd><dt>Entrega</dt><dd>${f.prazo} dias</dd></dl>${f.prazo>30?`<p class="note mt">Este prazo passa da data em que a obra precisa do material.</p>`:''}<div class="mt2">${S.cotSent?st('Enviado para aprovação'):`<button class="btn" onclick="cotSend()">Enviar para aprovação</button>`}</div>`)}${panel('Por que a escolha recomendada é a Terra Nobre',`<p class="sm" style="line-height:1.65">A Casa Brasil tem o menor preço, mas entrega em 40 dias, depois da data em que a obra precisa do porcelanato para o 4º pavimento. A Terra Nobre custa ${brl(tot(C.f[0])-tot(C.f[1]))} a mais no total, entrega dentro do prazo, parcela em 30, 60 e 90 dias e garante lote único, o que evita diferença de tonalidade entre os pavimentos.</p><p class="muted sm mt">Pela alçada configurada, valores acima de R$ 250.000 passam pelo gerente de obras e pela diretoria.</p>`)}</div>`}
+function cotSend(){const f=COT.f[S.cotSel??0],t=f.pu*COT.qtd+f.frete;S.cotSent=1;S.ap.push({id:'PC-4481',tipo:'Pedido de compra',desc:`Porcelanato 120×120, 3.800 m², ${f.n}`,obra:'Aurora',valor:brl(t),sol:'Fernanda Lima',etapa:'2 de 3',to:['engenharia','diretoria']});render();toast('Mapa RC-2321 enviado. Segue para Marcos Teixeira e depois para a diretoria.')}
+function vForn(){
+ return head('Fornecedores','Cadastro, documentos e avaliação de cada parceiro. Só fornecedores homologados e com documentos em dia podem receber pedidos e pagamentos.',`<button class="btn btn-sm" onclick="toast('Convite enviado. O fornecedor completa o cadastro pelo portal.')">Convidar fornecedor</button>`)
+ +kpis([['Homologados','86','12 em processo'],['Documentos vencendo','3','nos próximos 30 dias'],['Avaliação média','4,4 de 5','prazo, qualidade e documentação'],['Em reavaliação','1','Cristal Prime Vidros']])
+ +panel('Cadastro',table(['Fornecedor','Categoria','Cidade','>Avaliação','Homologação','Documentos','>Contratos'],FORN.map((f,i)=>`<tr class="click" onclick="fornDr(${i})"><td class="w5">${f[0]}</td><td>${f[1]}</td><td class="muted">${f[2]}</td><td class="r">${f[3]?nf(f[3],1):'Sem histórico'}</td><td>${st(f[4])}</td><td>${st(f[5])}</td><td class="r">${f[6]}</td></tr>`)),'',true)}
+function fornDr(i){const f=FORN[i],r=rng(i+9),c=[['Pontualidade',r()],['Qualidade',r()],['Documentação',r()],['Atendimento',r()]].map(([n,x])=>[n,f[3]?Math.min(5,f[3]-.3+x*.6):0]);
+ openDrawer(`<h2>${f[0]}</h2><p class="sub">${f[1]}, ${f[2]}</p><div class="dsec"><dl class="dl"><dt>Homologação</dt><dd>${st(f[4])}</dd><dt>Documentos</dt><dd>${st(f[5])}</dd><dt>Contratos ativos</dt><dd>${f[6]}</dd><dt>Avaliação geral</dt><dd>${f[3]?nf(f[3],1)+' de 5':'Sem histórico'}</dd></dl></div>${f[3]?`<div class="dsec"><h4>Avaliação por critério</h4><div class="bars">${c.map(([n,v])=>`<div style="grid-template-columns:110px 1fr 36px"><span>${n}</span><div class="trk" style="width:100%"><i style="width:${v/5*100}%"></i></div><span class="v">${nf(v,1)}</span></div>`).join('')}</div></div>`:''}<div class="dsec"><h4>Documentos exigidos</h4><div class="rows">${[['Certidão negativa federal','Válida até 02/03/2027'],['Certidão do FGTS',f[5].includes('FGTS')?'Falta enviar':'Válida até 28/11/2026'],['Certidão trabalhista',f[5].includes('trabalhista')?'Vence em 6 dias':'Válida até 14/04/2027'],['Contrato social e alvará','Em dia']].map(([n,s])=>`<div><span>${n}</span>${st(s)}</div>`).join('')}</div></div>`)}
+function vAlmox(){
+ return head('Almoxarifado','Peninsula Aurora. Estoque atual, mínimo de segurança e quantas semanas o material ainda cobre no ritmo de consumo atual.')
+ +kpis([['Itens controlados','412','na obra Aurora'],['Abaixo do mínimo',String(ALMOX.filter(a=>a[2]<a[3]).length),'reposição sugerida'],['Valor em estoque','R$ 1,86 mi','conferido em 31/10'],['Perdas no mês','1,4%','meta: até 2%']])
+ +panel('Estoque',table(['Material','>Atual','>Mínimo','Cobertura','Situação',''],ALMOX.map(([n,u,a,m,c])=>{const w=a/c,low=a<m;return `<tr><td class="w5">${n}</td><td class="r">${nf(a,a%1?1:0)} ${u}</td><td class="r muted">${nf(m)} ${u}</td><td>${pbar(Math.min(100,Math.round(w/8*100)))}<small>${nf(w,1)} semanas</small></td><td>${st(low?'Abaixo do mínimo':'Em dia')}</td><td class="r">${low&&can('compras')?`<button class="btn btn-sm btn-ghost" onclick="toast('Requisição de reposição de ${n} criada.')">Repor</button>`:''}</td></tr>`})),'',true)}
+
+/* ============ FINANCEIRO ============ */
+function vFin(){const pend=S.ap.filter(a=>a.to.includes('financeiro'));
+ return head('Financeiro','Visão consolidada de caixa, compromissos e recebimentos, separada por patrimônio de afetação de cada empreendimento.')
+ +kpis([['Saldo consolidado','R$ 184,3 mi','em 5 contas segregadas'],['A pagar em 30 dias','R$ 38,7 mi','214 títulos'],['A receber em 30 dias','R$ 52,1 mi','1.106 parcelas'],['Inadimplência','1,8%','acima de 30 dias: 0,6%']])
+ +`<div class="g g-21">${panel('Fluxo de caixa projetado, em R$ mi',cashChart()+`<div class="mt legend"><span><i class="sw sw-solid"></i>Entradas</span><span><i class="sw sw-hatch"></i>Saídas</span><span><svg width="22" height="8" aria-hidden="true"><line x1="0" x2="22" y1="4" y2="4" style="stroke:var(--ink-3)" stroke-width="1.5" stroke-dasharray="5 4"/></svg>Saldo acumulado (eixo da direita)</span></div><p class="note mt">Abril concentra o repasse do Vértice: R$ 142,6 mi de entradas com o habite-se.</p>`)}${panel('Saldo por patrimônio de afetação',`<div class="bars">${AFET.map(([n,v])=>`<div style="grid-template-columns:minmax(0,1.2fr) 1fr 70px"><span>${n}</span><div class="trk" style="width:100%"><i style="width:${v/71.8*100}%"></i></div><span class="v">${mi(v)}</span></div>`).join('')}</div><p class="muted sm mt">O dinheiro de cada empreendimento fica separado e só paga as despesas dele, como exige a lei de incorporação.</p>`)}</div>`
+ +panel('Pagamentos aguardando você',pend.length?`<div class="rows">${pend.map(a=>`<div><div><span class="w5">${a.desc}</span><small>${a.obra}, ${a.valor}</small></div><div class="btns"><button class="btn btn-sm btn-ghost" onclick="decide('${a.id}',0)">Recusar</button><button class="btn btn-sm" onclick="decide('${a.id}',1)">Aprovar</button></div></div>`).join('')}</div>`:empty('Nenhum pagamento pendente','Tudo o que chegou já foi decidido.'))}
+function vPagar(){const ok=r=>/Aprovado|Programado/.test(r[5]);const selT=[...S.pay].reduce((a,i)=>a+PAGAR[i][4],0);
+ return head('Contas a pagar','Próximos 15 dias. Selecione os títulos aprovados para gerar a remessa de pagamento ao banco.')
+ +kpis([['Vencendo hoje','R$ 187.200','1 título'],['Próximos 7 dias','R$ 3,95 mi','6 títulos'],['Aguardando aprovação','R$ 684.320','Instaladora Voltare'],['Retidos','R$ 268.900','não conformidade de qualidade']])
+ +panel('Títulos',table(['','Vencimento','Favorecido','Empreendimento','>Valor','Situação'],PAGAR.map((r,i)=>`<tr><td style="width:44px">${ok(r)?`<input type="checkbox" aria-label="Selecionar ${r[1]}" ${S.pay.has(i)?'checked':''} onchange="tp(${i},this.checked)" style="width:18px;height:18px;accent-color:var(--ink)">`:''}</td><td>${r[0]}</td><td><span class="w5">${r[1]}</span><small>${r[2]}</small></td><td>${r[3]}</td><td class="r">${brl(r[4])}</td><td>${st(r[5])}</td></tr>`)),`<div class="btns" style="align-items:center"><span class="sm muted">${S.pay.size} selecionados, ${brl(selT)}</span><button class="btn btn-sm" ${S.pay.size?'':'disabled style="opacity:.4;cursor:default"'} onclick="remessa()">Gerar remessa bancária</button></div>`,true)}
+function tp(i,on){on?S.pay.add(i):S.pay.delete(i);render()}
+function remessa(){const n=S.pay.size,t=[...S.pay].reduce((a,i)=>a+PAGAR[i][4],0);S.pay.clear();render();toast(`Remessa com ${n} ${n===1?'pagamento':'pagamentos'} (${brl(t)}) enviada ao Banco Meridional.`)}
+function vReceber(){
+ return head('Contas a receber','Parcelas dos clientes, repasses bancários e cobrança. Valores corrigidos pelo INCC até a entrega das chaves.')
+ +kpis([['Carteira a receber','R$ 1,24 bi','todos os empreendimentos'],['Recebido em outubro','R$ 47,3 mi','98,2% do previsto'],['Em atraso','R$ 1,9 mi','23 parcelas'],['Repasses em análise','R$ 9,8 mi','Vértice, 4 conjuntos']])
+ +panel('Movimentações recentes e próximas',table(['Cliente','Unidade','Referência','Vencimento','>Valor','Situação',''],RECEBER.map(r=>`<tr><td class="w5">${r[0]}</td><td>${r[1]}</td><td class="muted">${r[2]}</td><td>${r[3]}</td><td class="r">${brl(r[4])}</td><td>${st(r[5])}</td><td class="r">${/Atrasado/.test(r[5])?`<button class="btn btn-sm btn-ghost" onclick="toast('Lembrete enviado para ${r[0]} por e-mail e WhatsApp.')">Enviar lembrete</button>`:''}</td></tr>`)),'',true)}
+
+/* ============ COMERCIAL ============ */
+function vVendas(){const vals=[22.4,18.9,31.2,27.6,24.1,96.8,52.3,35.7,29.4,38.4,11.2];
+ const est=[['Peninsula Aurora','aurora'],['Peninsula Maré','mare'],['Peninsula Vértice','vertice']].map(([n,k])=>{const u=Object.values(S.units[k]);const c=s=>u.filter(x=>x.s===s).length;const disp=u.filter(x=>x.s==='disponivel').reduce((a,x)=>a+x.preco,0);return `<tr class="click" onclick="S.esp='${k}';go('espelho')"><td class="w5">${n}</td><td class="r">${c('disponivel')}</td><td class="r">${c('reservado')}</td><td class="r">${c('vendido')}</td><td class="r">${mi(disp/1e6)}</td></tr>`});
+ return head('Vendas','Desempenho comercial de 2026, estoque por empreendimento e equipe de corretores.')
+ +kpis([['Vendas em 2026','R$ 388,0 mi','142 unidades'],['Novembro até hoje','R$ 11,2 mi','4 unidades'],['Velocidade de vendas','6,2%','do estoque por mês'],['Ticket médio','R$ 2,73 mi','em 2026'],['Contatos no mês','1.284','conversão de 2,1%']])
+ +`<div class="g g-21">${panel('Vendas por mês em 2026, R$ mi',barChart(vals,MES.slice(0,11),{hl:10,id:'v',aria:'Vendas mensais de 2026, com pico de R$ 96,8 mi em junho no lançamento do Maré'})+`<p class="note mt">Junho concentra o lançamento do Maré. Novembro aparece hachurado porque o mês ainda não fechou.</p>`)}${panel('Ranking de corretores',`<div class="rows">${[['Litoral Select','Imobiliária parceira',6,71.4],['Prime Estates','Imobiliária parceira',11,38.2],['Rafael Nogueira','Corretor próprio',9,31.6],['Ana Sofia Ribeiro','Corretora própria',7,24.9],['Gustavo Lemos','Corretor próprio',6,17.3]].map(([n,r,u,v])=>`<div><div><span class="w5">${n}</span><small>${r}</small></div><div class="right">${mi(v)}<small>${u} unidades</small></div></div>`).join('')}</div>`)}</div>`
+ +panel('Estoque por empreendimento',table(['Empreendimento','>Disponíveis','>Reservadas','>Vendidas','>VGV disponível'],est),'',true)}
+const EN={aurora:'Peninsula Aurora',mare:'Peninsula Maré',vertice:'Peninsula Vértice'};
+const ECFG={aurora:{f:28,u:4},mare:{f:46,u:2},vertice:{f:18,u:8}};
+function vEspelho(){const E=ECFG[S.esp],us=S.units[S.esp],all=Object.values(us),c=s=>all.filter(x=>x.s===s).length;
+ let g='';for(let f=E.f;f>=1;f--)g+=`<div class="esp-row" style="--n:${E.u}"><span class="esp-f">${f}º</span>${Array.from({length:E.u},(_,j)=>{const id=f*100+j+1,x=us[id];return `<button class="u ${x.s}" onclick="unitDr(${id})" aria-label="Unidade ${id}, ${x.s==='disponivel'?'disponível':x.s}"><span>${id}</span></button>`}).join('')}</div>`;
+ return head('Espelho de vendas','Situação de cada unidade em tempo real. Escolha uma unidade para ver preço, área e reservar.')
+ +`<div class="tabs">${Object.keys(EN).map(k=>`<button class="tab${k===S.esp?' on':''}" onclick="S.esp='${k}';render()">${EN[k]}</button>`).join('')}</div>`
+ +kpis([['Vendidas',String(c('vendido')),Math.round(c('vendido')/all.length*100)+'% do total'],['Reservadas',String(c('reservado')),'reserva vale 48 horas'],['Permuta',String(c('permuta')),'com o dono do terreno'],['Disponíveis',String(c('disponivel')),mi(all.filter(x=>x.s==='disponivel').reduce((a,x)=>a+x.preco,0)/1e6)+' em VGV']])
+ +panel(EN[S.esp],`<div class="tw"><div class="esp" style="max-width:${40+E.u*130}px;margin:0 auto">${g}</div></div>`,legend([['solid','Vendida'],['hatch','Reservada'],['dot','Permuta'],['out','Disponível']]))}
+function unitDr(id){const x=S.units[S.esp][id],lab={vendido:'Vendida',reservado:'Reservada',permuta:'Permuta com o dono do terreno',disponivel:'Disponível'}[x.s];
+ openDrawer(`<h2>Unidade ${id}</h2><p class="sub">${EN[S.esp]}, ${Math.floor(id/100)}º pavimento</p><div class="dsec"><dl class="dl"><dt>Situação</dt><dd>${st(lab)}</dd><dt>Área privativa</dt><dd>${x.area} m²</dd><dt>Vagas</dt><dd>${x.area>200?4:x.area>150?3:2}</dd><dt>Preço de tabela</dt><dd>${brl(x.preco)}</dd><dt>Preço por m²</dt><dd>${brl(x.preco/x.area)}</dd>${x.cli?`<dt>${x.s==='vendido'?'Comprador':'Reservada para'}</dt><dd>${x.cli}</dd>`:''}</dl></div>${x.s==='disponivel'&&can('espelho')?`<div class="dsec"><div class="btns"><button class="btn" onclick="reserve(${id})">Reservar por 48 horas</button><button class="btn btn-ghost" onclick="toast('Proposta da unidade ${id} gerada com a tabela de novembro.')">Gerar proposta</button></div></div>`:''}`)}
+function reserve(id){const u=S.units[S.esp][id];u.s='reservado';u.cli='Cliente de Rafael Nogueira';closeDrawer();render();toast(`Unidade ${id} reservada até 12/11 às 15h.`)}
+function vCRM(){
+ return head('Funil de clientes','Cada contato, da primeira mensagem ao contrato assinado. Novos contatos são distribuídos entre os corretores automaticamente.',`<button class="btn btn-sm" onclick="toast('Contato criado e enviado para Rafael Nogueira, o próximo da fila.')">Novo contato</button>`)
+ +kpis([['Contatos ativos','326','em 3 empreendimentos'],['Visitas na semana','41','decorado e stand'],['Propostas abertas','12','R$ 63,8 mi'],['Tempo médio até o contrato','38 dias','do primeiro contato']])
+ +`<div class="kb">${LEADS.map(([c,ls])=>`<div class="kcol"><h4>${c} <span>${ls.length}</span></h4>${ls.map(([n,i,o,v])=>`<div class="kc"><b>${n}</b>${i}<div class="meta"><span>${o}</span><span>${v}</span></div></div>`).join('')}</div>`).join('')}</div>`}
+
+/* ============ PORTAL DO CLIENTE ============ */
+const dl=()=>toast('Neste ambiente de demonstração, os downloads ficam desativados.');
+function vCli(){
+ const news=[['06/11','Concretagem da laje do 19º pavimento concluída, um andar acima do seu.'],['28/10','Começou a alvenaria no 13º pavimento.'],['14/10','O banco financiador vistoriou a obra e aprovou a medição nº 22.'],['30/09','A estrutura chegou ao 18º pavimento, o seu andar.']];
+ const stg=[['Fundações','Concluída em jun/2025','Concluído'],['Estrutura do seu andar','Concluída em 30/09/2026','Concluído'],['Alvenaria','A partir de jan/2027','Aguardando'],['Instalações','A partir de mar/2027','Aguardando'],['Revestimentos','A partir de jul/2027','Aguardando'],['Esquadrias e fachada','A partir de set/2027','Aguardando'],['Pintura e acabamentos','A partir de jan/2028','Aguardando'],['Vistoria e entrega das chaves','jun/2028','Aguardando']];
+ const docs=[['Contrato de compra e venda','PDF, 2,4 MB'],['Memorial descritivo','PDF, 6,1 MB'],['Planta da unidade 1802','PDF, 1,8 MB'],['Manual de personalização','PDF, 3,2 MB'],['Extrato financeiro','Atualizado hoje']];
+ return `<div class="hero-cli"><div class="hc-art">${tower({f:28,d:18,p:19,hi:18,id:'cli',w:200,h:340,bg:'var(--surface)'})}<p class="sm muted mt">Seu apartamento está no 18º andar.</p></div><div><p class="muted">Peninsula Aurora, apartamento 1802</p><div class="big">62%</div><h1 style="font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.12;margin-top:10px;max-width:22ch">da obra concluída. A estrutura já passou do seu andar.</h1><p class="muted mt" style="max-width:56ch">Entrega prevista para junho de 2028. A próxima etapa no seu andar é a alvenaria, a partir de janeiro.</p><div class="mt2 btns" style="flex-wrap:wrap"><button class="btn" onclick="go('clipers')">Escolher acabamentos até 15/12</button><button class="btn btn-ghost" onclick="go('clipag')">Ver pagamentos</button></div></div></div>`
+ +`<div class="photos" style="margin-bottom:24px">${news.map(([d,t],i)=>`<figure class="photo" style="margin:0">${crane(i+11)}<p><span class="muted">${d}</span><br>${t}</p></figure>`).join('')}</div>`
+ +`<div class="g g-21">${panel('Etapas da sua unidade',table(['Etapa','Quando','Situação'],stg.map(r=>`<tr><td class="w5">${r[0]}</td><td class="muted">${r[1]}</td><td>${st(r[2])}</td></tr>`)),'',true)}${panel('Seus documentos',`<div class="rows">${docs.map(([n,s])=>`<div><div>${n}<small>${s}</small></div><button class="lnk" onclick="dl()">Baixar</button></div>`).join('')}</div>`)}</div>`}
+function vCliPag(){
+ const parc=[['21 de 36','15/08/2026',48300,'Pago'],['22 de 36','15/09/2026',48300,'Pago'],['23 de 36','15/10/2026',48300,'Pago'],['24 de 36','15/11/2026',48300,'A vencer'],['25 de 36','15/12/2026',48300,'A vencer'],['26 de 36','15/01/2027',48300,'A vencer'],['Chaves','jun/2028',1393200,'Financiamento bancário']];
+ return head('Pagamentos','Contrato da unidade 1802. Parcelas corrigidas mensalmente pelo INCC até a entrega das chaves.')
+ +kpis([['Valor do contrato','R$ 3.480.000','assinado em jan/2025'],['Pago até hoje','R$ 1.458.900','41,9% do contrato'],['Próxima parcela','R$ 48.300','vence em 15/11'],['Saldo nas chaves','R$ 1.393.200','com financiamento bancário']])
+ +`<div class="g g-12">${panel('Parcela de novembro',`<dl class="dl"><dt>Vencimento</dt><dd>15/11/2026</dd><dt>Valor</dt><dd>R$ 48.300,00</dd><dt>Correção INCC de outubro</dt><dd>incluída</dd></dl><p class="sm muted mt" style="margin-bottom:8px">Código de barras</p><div class="code">34191.79001 01043.510047 91020.150008 8 12340004830000</div><div class="mt btns" style="flex-wrap:wrap"><button class="btn btn-sm" onclick="copyCode()">Copiar código</button><button class="btn btn-sm btn-ghost" onclick="toast('Código Pix gerado. Válido por 30 minutos.')">Pagar com Pix</button></div>`)}${panel('Parcelas',table(['Parcela','Vencimento','>Valor','Situação'],parc.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="r">${brl(r[2])}</td><td>${st(r[3])}</td></tr>`)),'',true)}</div>`}
+function copyCode(){try{navigator.clipboard.writeText('34191790010104351004791020150008812340004830000').then(()=>toast('Código copiado.'),()=>toast('Não foi possível copiar. Selecione o código e copie manualmente.'))}catch(e){toast('Não foi possível copiar. Selecione o código e copie manualmente.')}}
+const OPTS=[['Piso das áreas sociais','piso',[['Porcelanato 120×120 acetinado','t-porc',0],['Travertino romano','t-trav',38400],['Carvalho europeu','t-mad',29700]]],['Bancadas de cozinha e banheiros','banc',[['Quartzo branco','t-qtz',0],['Mármore Calacatta','t-cal',21600],['Granito preto absoluto','t-gran',6800]]],['Metais','metal',[['Cromado','t-crom',0],['Preto fosco','t-pret',7900],['Escovado champanhe','t-ouro',12400]]],['Automação','auto',[['Infraestrutura pronta','t-a0',0],['Iluminação e persianas','t-a1',34000],['Completa, com áudio','t-a2',58000]]]];
+function vCliPers(){const tot=OPTS.reduce((a,[,k,o])=>a+o[S.pers[k]][2],0);
+ return head('Personalização','Escolha os acabamentos do apartamento 1802 até 15/12/2026. Depois dessa data, a obra começa a comprar os materiais do seu andar.')
+ +`<div class="g g-21"><div>${OPTS.map(([t,k,o])=>panel(t,`<div class="opt">${o.map(([n,tx,p],i)=>`<button class="oc${S.pers[k]===i?' on':''}" aria-pressed="${S.pers[k]===i}" onclick="S.pers.${k}=${i};render()"><div class="tex ${tx}"></div><div class="tx"><b>${n}</b>${p?'+ '+brl(p):'Incluso no contrato'}</div></button>`).join('')}</div>`)).join('<div style="height:20px"></div>')}</div><div style="position:sticky;top:88px;align-self:start">${panel('Resumo das escolhas',`<div class="rows">${OPTS.map(([t,k,o])=>`<div><div>${o[S.pers[k]][0]}<small>${t}</small></div><span>${o[S.pers[k]][2]?brl(o[S.pers[k]][2]):'Incluso'}</span></div>`).join('')}</div><div class="dsec"><dl class="dl"><dt class="w5" style="color:var(--ink)">Valor adicional</dt><dd style="font-family:var(--serif);font-size:30px">${brl(tot)}</dd></dl><p class="sm muted mt">Pode ser parcelado em até 12 vezes ou pago na entrega das chaves.</p><button class="btn btn-block" onclick="toast('Escolhas enviadas. A engenharia confirma a viabilidade em até 5 dias úteis.')">Enviar escolhas</button></div>`)}</div></div>`}
+function vCliAtend(){
+ const sol=[['Ponto extra de tomada na suíte principal','Aprovado pela engenharia. Custo de R$ 1.200 na próxima parcela.','Aprovado'],['Alteração da bancada da cozinha para formato em L','Em análise pela engenharia e pelo projetista.','Em análise'],['Data da vistoria do decorado','Respondido por Isabela Nunes em 22/10.','Concluído']];
+ return head('Atendimento','Pedidos de alteração, dúvidas e, depois da entrega, chamados de assistência técnica.')
+ +`<div class="g g-21">${panel('Suas solicitações',`<div class="rows">${sol.map(([t,d,s])=>`<div><div><span class="w5">${t}</span><small>${d}</small></div>${st(s)}</div>`).join('')}</div>`)}${panel('Nova solicitação',`<label class="fld" style="margin-top:0">Assunto<select class="inp" style="margin-top:6px"><option>Alteração na planta</option><option>Dúvida sobre pagamentos</option><option>Dúvida sobre a obra</option><option>Documentos</option></select></label><label class="fld">Mensagem<textarea class="inp" rows="4" style="margin-top:6px;resize:vertical" placeholder="Conte o que você precisa"></textarea></label><button class="btn btn-block" onclick="toast('Solicitação enviada. Resposta em até 2 dias úteis.')">Enviar solicitação</button><div class="dsec"><div class="ppl">${person('Isabela Nunes','Relacionamento com clientes')}</div></div>`)}</div>`}
+
+/* ============ PORTAL DO FORNECEDOR ============ */
+S.ag=[['11/11, 7h00','Aurora','Pilares do 20º','48 m³','fck 40',1],['13/11, 6h30','Aurora','Laje do 20º','132 m³','fck 40',1],['14/11, 7h00','Maré','Bloco B12','86 m³','fck 45',0],['17/11, 7h00','Maré','Blocos B13 a B15','214 m³','fck 45',0],['19/11, 8h00','Vértice','Contrapiso do térreo','38 m³','fck 25',1]];
+function vFHome(){
+ return head('Bom dia, André','Portal da Concreteira Atlântica na Peninsula Engenharia. Pedidos, entregas, notas e pagamentos em um só lugar.')
+ +kpis([['Pedidos ativos','3','2 obras'],['Concretagens programadas','5','próximos 10 dias'],['A receber','R$ 283.500','2 notas fiscais'],['Sua avaliação','4,7 de 5','entre 86 fornecedores']])
+ +`<div class="g g-21">${panel('Agenda de concretagens',table(['Data','Obra e local','>Volume','Traço','Situação'],S.ag.map((r,i)=>`<tr><td>${r[0]}</td><td><span class="w5">Peninsula ${r[1]}</span><small>${r[2]}</small></td><td class="r">${r[3]}</td><td>${r[4]}</td><td>${r[5]?st('Confirmado'):`<button class="btn btn-sm" onclick="S.ag[${i}][5]=1;render();toast('Concretagem de ${r[0]} confirmada. A obra foi avisada.')">Confirmar</button>`}</td></tr>`)),'',true)}${panel('Sua avaliação',`<div class="bars">${[['Pontualidade',4.8],['Resistência do concreto',4.9],['Documentação',4.3],['Atendimento',4.7]].map(([n,v])=>`<div style="grid-template-columns:150px 1fr 34px"><span>${n}</span><div class="trk" style="width:100%"><i style="width:${v/5*100}%"></i></div><span class="v">${nf(v,1)}</span></div>`).join('')}</div><div class="dsec"><h4>Documentos de homologação</h4><div class="rows"><div><span>Certidão negativa federal</span>${st('Válida até 02/03/2027')}</div><div><span>Certidão do FGTS</span>${st('Vence em 18 dias')}</div><div><span>ISO 9001</span>${st('Válida até 11/2027')}</div></div><button class="btn btn-sm btn-ghost mt" onclick="toast('Documento enviado. Suprimentos confere em até 24 horas.')">Enviar documento atualizado</button></div>`)}</div>`}
+const FCI=[['Concreto usinado fck 45 bombeável','m³',1200],['Concreto usinado fck 40 bombeável','m³',600],['Bombeamento com lança de 42 m','diária',30],['Ensaio de corpo de prova','un',180]];
+const pn=v=>parseFloat(String(v).replace(/\./g,'').replace(',','.'))||0;
+function vFCot(){
+ return head('Cotações abertas','A Peninsula convida você a enviar proposta. Os preços ficam visíveis só para a equipe de Suprimentos.')
+ +`<div class="g g-21">${panel('COT-0931, Peninsula Maré',`<p class="sm muted" style="margin-bottom:14px">Concreto para blocos de coroamento e cortinas. Entregas entre dez/2026 e mar/2027 em Balneário Camboriú. Responda até 14/11/2026 às 18h.</p>`+table(['Item','>Quantidade','Preço unitário','>Total'],FCI.map(([n,u,q],i)=>`<tr><td class="w5">${n}</td><td class="r">${nf(q)} ${u}</td><td style="min-width:140px"><input class="inp" inputmode="decimal" placeholder="0,00" value="${S.cotq[i]||''}" oninput="S.cotq[${i}]=this.value;fTot()" aria-label="Preço unitário de ${n}"></td><td class="r" id="ft${i}">${brl(pn(S.cotq[i]||0)*q,2)}</td></tr>`)),'',false)}${panel('Condições',`<label class="fld" style="margin-top:0">Prazo de pagamento<select class="inp" style="margin-top:6px"><option>28 dias</option><option>30/60 dias</option><option>30/60/90 dias</option></select></label><label class="fld">Validade da proposta<select class="inp" style="margin-top:6px"><option>30 dias</option><option>60 dias</option><option>90 dias</option></select></label><div class="dsec"><dl class="dl"><dt class="w5" style="color:var(--ink)">Total da proposta</dt><dd id="fTot" style="font-family:var(--serif);font-size:28px">${brl(FCI.reduce((a,[,,q],i)=>a+pn(S.cotq[i]||0)*q,0),2)}</dd></dl><button class="btn btn-block" onclick="fSend()">Enviar proposta</button></div>`)}</div>`}
+function fTot(){let t=0;FCI.forEach(([,,q],i)=>{const v=pn(S.cotq[i]||0)*q;t+=v;$('#ft'+i).textContent=brl(v,2)});$('#fTot').textContent=brl(t,2)}
+function fSend(){const t=FCI.reduce((a,[,,q],i)=>a+pn(S.cotq[i]||0)*q,0);if(!t){toast('Preencha pelo menos um preço antes de enviar.');return}toast(`Proposta de ${brl(t,2)} enviada para Fernanda Lima.`)}
+function vFPed(){
+ return head('Pedidos e pagamentos','Acompanhe cada pedido, envie notas fiscais e veja quando cada pagamento cai.',`<button class="btn btn-sm" onclick="toast('Nota fiscal recebida. A obra confere o recebimento antes de liberar o pagamento.')">Enviar nota fiscal</button>`)
+ +panel('Pedidos',table(['Pedido','Obra','Entregue','>Valor','Situação'],[['PC-4468, concreto fck 40, 640 m³','Aurora',49,'R$ 384.000','Em andamento'],['PC-4478, concreto fck 45, 1.800 m³','Maré',0,'R$ 1.116.000','Aguardando aprovação da Peninsula'],['PC-4402, concreto fck 25, 420 m³','Vértice',100,'R$ 201.600','Concluído']].map(r=>`<tr><td class="w5">${r[0]}</td><td>${r[1]}</td><td>${pbar(r[2])}</td><td class="r">${r[3]}</td><td>${st(r[4])}</td></tr>`)),'',true)
+ +`<div style="height:24px"></div>`+panel('Notas fiscais e pagamentos',table(['Nota','Pedido','>Valor','Pagamento','Situação'],[['NF 22.955','PC-4468','R$ 96.300','Previsto para 24/11','Em conferência na obra'],['NF 22.918','PC-4468','R$ 187.200','10/11/2026','Aprovada'],['NF 22.871','PC-4468','R$ 154.800','31/10/2026','Paga'],['NF 22.790','PC-4402','R$ 201.600','15/10/2026','Paga']].map(r=>`<tr><td class="w5">${r[0]}</td><td>${r[1]}</td><td class="r">${r[2]}</td><td>${r[3]}</td><td>${st(r[4])}</td></tr>`)),'',true)}
+
+/* ============ ADMINISTRAÇÃO ============ */
+function vAdmin(){const logins=[88,92,97,41,12,95,101,94,90,99,38,9,93,96];
+ const integ=[['Banco Meridional','Remessa de pagamentos e retorno de cobranças','Conectado','há 6 min'],['Contabilidade','Lançamentos contábeis por SPE','Conectado','há 1 h'],['Nota fiscal eletrônica','Captura automática das notas dos fornecedores','Conectado','há 2 min'],['Assinatura eletrônica','Contratos de venda e de fornecedores','Conectado','há 22 min'],['Visualizador BIM','Modelos IFC e conflitos de compatibilização','Conectado','há 3 h'],['Ponto eletrônico','Efetivo próprio nos canteiros','Atenção: 2 relógios offline','há 41 min'],['WhatsApp','Avisos de aprovação e de obra','Conectado','há 1 min']];
+ return head('Painel do sistema','Saúde da plataforma, integrações e pontos que precisam da atenção do administrador.')
+ +kpis([['Usuários ativos','148','de 160 licenças'],['Acessos hoje','96','pico às 8h'],['Integrações','7','6 conectadas'],['Disponibilidade','99,98%','últimos 30 dias']])
+ +`<div class="g g-21">${panel('Integrações',table(['Sistema','Função','Situação','>Última sincronização'],integ.map(r=>`<tr><td class="w5">${r[0]}</td><td class="muted">${r[1]}</td><td>${st(r[2])}</td><td class="r">${r[3]}</td></tr>`)),'',true)}${panel('Pontos de atenção',`<div class="rows">${[['11 usuários sem verificação em duas etapas','Lembrete enviado hoje às 8h','usuarios'],['2 diários de obra sem assinatura','Maré, dias 06/11 e 07/11',''],['3 fornecedores com documento a vencer','Bloqueio automático de pagamento ao vencer',''],['1 acesso suspenso por inatividade','Carlos Brito, 92 dias sem entrar','usuarios']].map(([t,d,v])=>`<div><div><span class="w5">${t}</span><small>${d}</small></div>${v?`<button class="lnk" onclick="go('${v}')">Ver</button>`:''}</div>`).join('')}</div>`)}</div>`
+ +panel('Acessos por dia, últimas duas semanas',barChart(logins,['28','29','30','31','01','02','03','04','05','06','07','08','09','10'],{hl:13,id:'a',max:120,aria:'Acessos por dia nas últimas duas semanas, entre 9 e 101 por dia'})+`<p class="note mt">Os vales são fins de semana e feriado. Hoje ainda está em andamento.</p>`)}
+function vUsers(){
+ return head('Usuários e permissões','Quem acessa o sistema e o que cada perfil pode fazer em cada área. Mudanças valem no próximo acesso da pessoa.',`<button class="btn btn-sm" onclick="toast('Convite enviado. A pessoa define a senha no primeiro acesso.')">Convidar usuário</button>`)
+ +panel('Usuários',table(['Nome','Perfil','Acesso a','Último acesso','Situação'],USERS.map(u=>`<tr><td><div style="display:flex;gap:10px;align-items:center">${av(u[0],['Cliente','Fornecedor','Corretor parceiro'].includes(u[1]))}<span class="w5">${u[0]}</span></div></td><td>${u[1]}</td><td class="muted">${u[2]}</td><td>${u[3]}</td><td>${st(u[4])}</td></tr>`)),'',true)
+ +`<div style="height:24px"></div>`+panel('Permissões por perfil',table(['Perfil',...MODS],PERF.map((p,i)=>`<tr><td class="w5">${p}</td>${MODS.map((m,j)=>{const l=S.perm[i][j];return `<td class="lv"><button class="l${l}" onclick="cyc(${i},${j})" aria-label="${p}, ${m}: ${LV[l]}. Clique para mudar">${LV[l]}</button></td>`}).join('')}</tr>`),'pm')+`<div class="pbody" style="border-top:1px solid var(--line-2)"><div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center"><span class="sm muted">Clique em uma célula para trocar o nível. Aprovar inclui editar, que inclui ver.</span><button class="btn btn-sm" onclick="toast('Permissões salvas. Valem no próximo acesso de cada pessoa.')">Salvar permissões</button></div></div>`,'',true)}
+function cyc(i,j){S.perm[i][j]=(S.perm[i][j]+1)%4;render()}
+const fmtU=(v,u)=>u==='%'?nf(v,1).replace(',0','')+'%':brl(v);
+function chainHTML(){const F=S.flows[S.flow],v=F.sim,ch=[];F.fx.forEach(([a,q],i)=>{const from=i?F.fx[i-1][0]:0;if((i===0||v>from)&&!ch.includes(q))ch.push(q)});
+ return `<div class="chain">${ch.map((x,i)=>`${i?'<i>depois</i>':''}<span class="chip">${x}</span>`).join('')}</div><p class="sm muted mt">${ch.length} ${ch.length===1?'aprovação':'aprovações'}. Prazo de resposta de ${F.sla} horas em cada etapa.</p>`}
+function vFluxos(){const F=S.flows[S.flow];
+ const fx=F.fx.map(([ate,q],i)=>{const from=i?F.fx[i-1][0]:0;return `<div class="flowr"><div>${ate==null?`<span class="sm">${i?'Acima de '+fmtU(from,F.u):'Qualquer valor'}</span>`:`<label class="sm muted" style="display:block;margin-bottom:4px">${i?'De '+fmtU(from,F.u)+' até':'Até'}</label><input class="inp" type="number" value="${ate}" onchange="setFx(${i},this.value)" aria-label="Limite da faixa ${i+1}">`}</div><div class="arr"></div><select class="inp" onchange="S.flows[S.flow].fx[${i}][1]=this.value;render()" aria-label="Quem aprova a faixa ${i+1}">${[...new Set([q,...ROLES])].map(r=>`<option${r===q?' selected':''}>${r}</option>`).join('')}</select>${ate!=null?`<button class="ib" onclick="delFx(${i})" aria-label="Remover faixa ${i+1}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg></button>`:'<span></span>'}</div>`}).join('');
+ return head('Fluxos de aprovação','Defina quem aprova o quê, em que ordem e a partir de qual valor. É aqui que o sistema se ajusta ao jeito de trabalhar do seu time.',`<button class="btn btn-sm" onclick="toast('Fluxo de ${F.n.toLowerCase()} salvo. Vale para novas solicitações a partir de agora.')">Salvar fluxo</button>`)
+ +`<div class="tabs">${Object.entries(S.flows).map(([k,f])=>`<button class="tab${k===S.flow?' on':''}" onclick="S.flow='${k}';render()">${f.n}</button>`).join('')}</div>`
+ +`<div class="g g-21">${panel('Faixas de aprovação',fx+`<div class="mt"><button class="btn btn-ghost btn-sm" onclick="addFx()">Adicionar faixa</button></div><p class="note mt">A aprovação é em cadeia: uma solicitação passa por todas as faixas até chegar à sua.</p>`)}${panel('Simular uma solicitação',`<label class="fld" style="margin-top:0">Valor ${F.u==='%'?'do desconto, em %':'da solicitação, em R$'}<input class="inp" type="number" value="${F.sim}" oninput="S.flows[S.flow].sim=+this.value;$('#simOut').innerHTML=chainHTML()" style="margin-top:6px"></label><div class="dsec"><h4>Quem precisa aprovar</h4><div id="simOut">${chainHTML()}</div></div>`)}</div>`
+ +`<div class="g g-2">${panel('Regras adicionais',F.op.map(([t,on],i)=>`<div class="tg" role="switch" tabindex="0" aria-checked="${!!on}" onclick="tglOp(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();tglOp(${i})}"><span>${t}</span><span class="sw-t${on?' on':''}"></span></div>`).join(''))}${panel('Prazo de resposta',`<label class="fld" style="margin-top:0">Horas para cada aprovador responder<input class="inp" type="number" min="1" value="${F.sla}" onchange="S.flows[S.flow].sla=+this.value;render()" style="margin-top:6px"></label><p class="sm muted mt">Passado o prazo, o sistema avisa o aprovador de novo e, depois de mais ${F.sla} horas, avisa o gestor dele.</p>`)}</div>`}
+function setFx(i,v){const F=S.flows[S.flow];F.fx[i][0]=Math.max(0,+v);render()}
+function addFx(){const F=S.flows[S.flow],l=F.fx.length-1,p=l>0?F.fx[l-1][0]:0;F.fx.splice(l,0,[p?p*2:(F.u==='%'?2:20000),'Gerente de obras']);render()}
+function delFx(i){S.flows[S.flow].fx.splice(i,1);render()}
+function tglOp(i){const o=S.flows[S.flow].op[i];o[1]=o[1]?0:1;render()}
+function vAudit(){
+ return head('Auditoria','Tudo o que foi feito no sistema, por quem e quando. Os registros não podem ser apagados nem editados.')
+ +panel('Registro de atividades',`<div class="pbody" style="border-bottom:1px solid var(--line-2)"><input class="inp" placeholder="Filtrar por pessoa, ação ou área" aria-label="Filtrar registros" oninput="const q=this.value.toLowerCase();document.querySelectorAll('#aud tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(q)?'':'none')"></div>`+table(['Quando','Quem','O que fez','Onde'],AUD.map(a=>`<tr><td class="muted" style="white-space:nowrap">${a[0]}</td><td class="w5">${a[1]}</td><td>${a[2]}</td><td class="muted">${a[3]}</td></tr>`)).replace('<tbody>','<tbody id="aud">'),'',true)}
+
+/* ============ INCORPORAÇÃO ============ */
+function viaCalc(){const v=S.via,ap=21400,ac=34000,vgv=ap*v.preco/1e6,perm=vgv*v.perm/100,rec=vgv-perm,obra=ac*v.custo/1e6,imp=rec*.04,com=rec*.06,desp=rec*.05,res=rec-obra-imp-com-desp;return {vgv,perm,rec,obra,imp,com,desp,res,mg:res/rec*100}}
+function viaOut(){const r=viaCalc(),seg=[['Permuta',r.perm,'dot'],['Obra',r.obra,'solid'],['Impostos, comercial e despesas',r.imp+r.com+r.desp,'hatch'],['Resultado',Math.max(r.res,0),'out']];
+ return `<div class="stack">${seg.map(([n,x,c])=>`<span class="sw-${c}" style="width:${x/r.vgv*100}%;border-right:1px solid var(--ink)" title="${n}"></span>`).join('')}</div>${legend(seg.map(([n,x,c])=>[c,n+': '+mi(x)]))}<dl class="dl mt2"><dt>VGV</dt><dd>${mi(r.vgv)}</dd><dt>Receita sem a permuta</dt><dd>${mi(r.rec)}</dd><dt>Custo de obra</dt><dd>${mi(r.obra)}</dd><dt>Impostos (RET de 4%)</dt><dd>${mi(r.imp)}</dd><dt>Comercial (6%)</dt><dd>${mi(r.com)}</dd><dt>Projetos, aprovação e marketing (5%)</dt><dd>${mi(r.desp)}</dd><dt class="w5" style="color:var(--ink)">Resultado</dt><dd class="w5">${mi(r.res)}</dd><dt class="w5" style="color:var(--ink)">Margem sobre a receita</dt><dd style="font-family:var(--serif);font-size:30px;line-height:1">${nf(r.mg,1)}%</dd></dl><div class="mt">${r.mg>=28?st('Dentro da meta do comitê, 28%'):st('Abaixo da meta do comitê, 28%')}</div>`}
+const VL={preco:v=>brl(v)+'/m²',custo:v=>brl(v)+'/m²',perm:v=>v+'%'};
+function setVia(k,v){S.via[k]=+v;$('#lv-'+k).textContent=VL[k](+v);$('#viaOut').innerHTML=viaOut()}
+function vTerrenos(){const ET=['Prospecção','Viabilidade','Due diligence','Comitê','Adquirido'];
+ const rg=(k,l,min,max,step)=>`<div class="rng"><label for="r-${k}">${l} <b id="lv-${k}">${VL[k](S.via[k])}</b></label><input id="r-${k}" type="range" min="${min}" max="${max}" step="${step}" value="${S.via[k]}" oninput="setVia('${k}',this.value)"></div>`;
+ return head('Terrenos e viabilidade','Funil de áreas em estudo e simulação do negócio antes de levar ao comitê de investimento.',`<button class="btn btn-sm" onclick="toast('Terreno cadastrado na etapa de prospecção.')">Cadastrar terreno</button>`)
+ +kpis([['Terrenos em estudo','5','VGV potencial de R$ 1,56 bi'],['No comitê','1','Savassi, decisão em 17/11'],['Banco de terrenos','R$ 1,87 bi','em VGV já garantido'],['Margem mínima','28%','definida pelo comitê']])
+ +`<div class="kb" style="margin-bottom:24px">${ET.map(e=>{const ts=TER.filter(t=>t.et===e);return `<div class="kcol"><h4>${e} <span>${ts.length}</span></h4>${ts.map(t=>`<div class="kc"${t.n==='Ecoville'?' style="border-color:var(--ink)"':''}><b>${t.n}</b>${t.loc}, ${t.area}<div class="meta"><span>${t.neg}</span></div>${t.vgv?`<div class="meta"><span>VGV estimado</span><span>${mi(t.vgv)}</span></div>`:''}</div>`).join('')}</div>`}).join('')}</div>`
+ +`<div class="g g-12">${panel('Simulação do terreno Ecoville',`<p class="sm muted" style="margin-bottom:18px">Curitiba/PR. 4.200 m² de terreno, 21.400 m² de área privativa e 34.000 m² de área construída. Mova os controles para testar cenários.</p>${rg('preco','Preço médio de venda',18000,32000,100)}${rg('custo','Custo de obra por m² construído',5500,9500,50)}${rg('perm','Permuta com o dono do terreno',0,30,1)}`)}${panel('Resultado do estudo',`<div id="viaOut">${viaOut()}</div>`)}</div>`}
+function vProjetos(){
+ return head('Projetos e legalização','Documentos técnicos com controle de revisão, conflitos de compatibilização e o caminho de cada aprovação legal.',`<button class="btn btn-sm" onclick="toast('Revisão enviada. Os projetistas envolvidos foram avisados.')">Enviar nova revisão</button>`)
+ +kpis([['Documentos em análise','2','Maré'],['Conflitos no modelo BIM','14','Maré, 6 de hidráulica com estrutura'],['Revisões no mês','23','5 projetistas'],['Processos legais ativos','3','Quinta da Serra e Vértice']])
+ +panel('Documentos técnicos, Peninsula Maré',table(['Código','Documento','Disciplina','Projetista','>Revisão','Situação'],GED.map(r=>`<tr><td class="muted">${r[0]}</td><td class="w5">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="r">${r[4]}</td><td>${st(r[5])}</td></tr>`)),'',true)
+ +`<div class="g g-2" style="margin-top:24px">${panel('Legalização, Quinta da Serra',`<ol class="ol">${LEGAL.map(([t,d,s])=>`<li><div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div>${t}<small style="display:block;color:var(--ink-3);font-size:12.5px">${d}</small></div>${st(s)}</div></li>`).join('')}</ol>`)}${panel('Conflitos de compatibilização',`<div class="bars">${[['Hidráulica e estrutura',6],['Elétrica e forro',5],['Ar-condicionado e vigas',3]].map(([n,v])=>`<div style="grid-template-columns:170px 1fr 30px"><span>${n}</span><div class="trk" style="width:100%"><i style="width:${v/6*100}%"></i></div><span class="v">${v}</span></div>`).join('')}</div><p class="note mt">Reunião de compatibilização toda quinta às 14h com os projetistas. Prazo para zerar os conflitos: 05/12.</p>`)}</div>`}
+
+/* ============ REGISTRO DE TELAS ============ */
+const V={exec:['Visão executiva',vExec],jornada:['Jornada e processos',vJornada],aprovacoes:['Aprovações',vAprov],emp:['Empreendimentos',vEmp],pessoas:['Pessoas e parceiros',vPessoas],
+ obra:['Painel da obra',vObra],crono:['Cronograma',vCrono],diario:['Diário de obra',vDiario],qualidade:['Qualidade',vQual],seguranca:['Segurança do trabalho',vSeg],medicoes:['Medições',vMed],assist:['Assistência técnica',vAssist],meudia:['Meu dia',vMeuDia],
+ compras:['Compras',vCompras],cotacao:['Mapa de cotação',vCotacao],forn:['Fornecedores',vForn],almox:['Almoxarifado',vAlmox],
+ fin:['Financeiro',vFin],pagar:['Contas a pagar',vPagar],receber:['Contas a receber',vReceber],
+ vendas:['Vendas',vVendas],espelho:['Espelho de vendas',vEspelho],crm:['Funil de clientes',vCRM],
+ cli:['Minha unidade',vCli],clipag:['Pagamentos',vCliPag],clipers:['Personalização',vCliPers],cliatend:['Atendimento',vCliAtend],
+ fhome:['Painel',vFHome],fcot:['Cotações abertas',vFCot],fped:['Pedidos e pagamentos',vFPed],
+ admin:['Painel do sistema',vAdmin],usuarios:['Usuários e permissões',vUsers],fluxos:['Fluxos de aprovação',vFluxos],auditoria:['Auditoria',vAudit],
+ terrenos:['Terrenos e viabilidade',vTerrenos],projetos:['Projetos e legalização',vProjetos]};
+
+function genUnits(){const cfg={aurora:{seed:7,pv:.78,pr:.05,pp:.05,areas:[186,186,242,242],m2:21800},mare:{seed:11,pv:.41,pr:.05,pp:.04,areas:[312,286],m2:38500},vertice:{seed:3,pv:.91,pr:.03,pp:.02,areas:[92,104,118,96,92,104,118,96],m2:26000}};
+ const NM=['Família Arruda','Carolina Prates','Marcelo Dantas','Helena e Otávio Cruz','Juliano Reis','Sofia Albuquerque','Tiago Monteiro','Ana Paula Cerqueira','Felipe Guimarães','Laura Bastos','Gustavo e Íris Leme','Patrícia Sampaio'];
+ for(const [k,c] of Object.entries(cfg)){const r=rng(c.seed),E=ECFG[k];S.units[k]={};for(let f=1;f<=E.f;f++)for(let j=0;j<E.u;j++){const id=f*100+j+1,x=r(),s=x<c.pv?'vendido':x<c.pv+c.pr?'reservado':x<c.pv+c.pr+c.pp?'permuta':'disponivel',area=c.areas[j];S.units[k][id]={s,area,preco:Math.round(area*c.m2*(1+.006*(f-1))/1000)*1000,cli:s==='vendido'?NM[Math.floor(r()*NM.length)]:s==='reservado'?'Cliente em negociação':null}}}
+ const a=S.units.aurora;Object.assign(a[1802],{s:'vendido',cli:'Beatriz Montenegro'});Object.assign(a[2401],{s:'reservado',cli:'Eduarda Fontes'});Object.assign(a[1503],{s:'reservado',cli:'Luísa Peixoto'});Object.assign(a[2202],{s:'vendido',cli:'Eduardo e Marina Falcão'});Object.assign(a[1404],{s:'vendido',cli:'Renata Vilela'})}
+genUnits();
+for(const k of ['aurora','mare','vertice']){const u=Object.values(S.units[k]);EMP.find(e=>e.id===k).vend=Math.round(u.filter(x=>x.s==='vendido').length/u.length*100)}
+render();
+</script>
+</body>
+</html>
